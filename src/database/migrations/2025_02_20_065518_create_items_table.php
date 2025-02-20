@@ -18,7 +18,7 @@ class CreateItemsTable extends Migration
             $table->integer('user_id');
             $table->string('image');
             $table->integer('category_id');
-            $table->integer('quality_id');
+            $table->integer('condition_id');
             $table->string('name');
             $table->string('brand');
             $table->text('description');
