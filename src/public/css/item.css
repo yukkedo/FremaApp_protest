@@ -24,6 +24,15 @@
     display: flex;
 }
 
+.header-nav__item--button {
+    background-color: #000;
+    color: #ffffff;
+    border: none;
+    margin-right: 50px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
 .header-nav__item {
     margin-right: 50px;
     text-decoration: none;

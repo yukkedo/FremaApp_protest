@@ -15,9 +15,15 @@
     </form>
     <nav class="header-nav">
         <ul class="header-nav__list">
-            <li><a href="" class="header-nav__item">ログアウト</a></li>
+            @if (Auth::check())
+            <form action="/logout" class="logout" method="post">
+                @csrf
+                <button class="header-nav__item--button">ログアウト</></button>
+            </form>
+            @endif
             <li><a href="" class="header-nav__item">マイページ</a></li>
             <li><a href="" class="header-nav__item--sell">出品</a></li>
+
         </ul>
     </nav>
 </div>
