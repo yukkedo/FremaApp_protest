@@ -54,6 +54,7 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.register');
         });
 
+        // 会員登録後のリダイレクト設定
         Fortify::redirects('register', '/mypage/profile');
 
         Fortify::loginView(function () {
