@@ -27,11 +27,11 @@ class Item extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'item_category', 'item_id', 'category_id');
     }
 
-    public function conditions()
+    public function condition()
     {
-        return $this->hasOne(Condition::class);
+        return $this->belongsTo(Condition::class);
     }
 }
