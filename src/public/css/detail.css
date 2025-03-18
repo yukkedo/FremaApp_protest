@@ -1,0 +1,156 @@
+.header {
+    display: flex;
+    align-items: center;
+    line-height: 82px;
+}
+
+.header__search--input {
+    height: 40px;
+    line-height: 82px;
+    margin: 0 100px;
+    padding: 10px 30px;
+    width: 80%;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+.header-nav {
+    margin-left: auto;
+}
+
+.header-nav__list {
+    list-style: none;
+    display: flex;
+}
+
+.header-nav__item--button {
+    background-color: #000;
+    color: #ffffff;
+    border: none;
+    margin-right: 50px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.no-border {
+    text-decoration: none !important;
+}
+
+.header-nav__item {
+    margin-right: 50px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.header-nav__item--sell {
+    margin-right: 30px;
+    text-decoration: none;
+    color: #000;
+    background-color: #ffffff;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+}
+
+.detail {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.left-content {
+    width: 40%;
+    padding: 100px 50px;
+}
+
+.right-content {
+    width: 40%;
+    padding: 70px 50px;
+}
+
+.left-content__img {
+    width: 100%;
+    height: auto;
+}
+
+.item-name h3 {
+    font-size: 30px;
+}
+
+.price-style {
+    font-size: 30px;
+}
+
+.item-check {
+    display: flex;
+}
+
+.favorite-checkbox {
+    display: none;
+}
+
+.fa-star {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    font-size: 30px;
+    color: gray;
+    cursor: pointer;
+}
+
+.favorite-checkbox:checked+.fa-star {
+    color: gold;
+}
+
+.fa-comment {
+    margin-left: 40px;
+    font-size: 30px;
+    color: gray;
+}
+
+.purchase-button {
+    background-color: #FF5555;
+    color: #ffffff;
+    border-radius: 5px;
+    border: none;
+    width: 90%;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.explain-title {
+    font-size: 20px;
+}
+
+.item-text {
+    margin: 15px 0;
+}
+
+.info-content {
+    display: flex;
+    align-items: center;
+}
+
+.label {
+    font-weight: bold;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.content--category {
+    background-color: #cccccc;
+    border-radius: 15px;
+    margin-right: 10px;
+    padding: 0 10px;
+    font-size: 15px;
+    width: auto;
+    flex-wrap: wrap;
+}
+
+.content--condition {
+    margin-left: 20px;
+}
+
+
+

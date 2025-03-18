@@ -16,14 +16,19 @@
     <nav class="header-nav">
         <ul class="header-nav__list">
             @if (Auth::check())
-            <form action="/logout" class="logout" method="post">
-                @csrf
-                <button class="header-nav__item--button">ログアウト</></button>
-            </form>
+            <li>
+                <form action="/logout" class="logout" method="post">
+                    @csrf
+                    <button class="header-nav__item--button">ログアウト</button>
+                </form>
+            </li>
+            @else
+            <li>
+                <a href="/login" class="header-nav__item--button no-border">ログイン</a>
+            </li>
             @endif
             <li><a href="" class="header-nav__item">マイページ</a></li>
             <li><a href="" class="header-nav__item--sell">出品</a></li>
-
         </ul>
     </nav>
 </div>
@@ -36,15 +41,20 @@
         <a href="" class="my-list">マイページ</a>
     </div>
 
+
     <div class="item__content">
+        @foreach ($items as $item)
         <div class="item__group">
             <div class="item__img">
-                <img src="{{ asset('storage/item_img/watch.jpg') }}" alt="商品画像" width="290px" height="290px">
+                <a href="/item/{{$item->id}}">
+                    <img src="{{ asset($item->image) }}" alt="商品画像" width="250px" height="250px">
+                </a>
             </div>
             <div class="item__name">
-                <p>商品名</p>
+                <p>{{$item->name}}</p>
             </div>
         </div>
+        @endforeach
     </div>
 </div>
 @endsection

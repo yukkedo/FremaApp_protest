@@ -33,6 +33,10 @@
     cursor: pointer;
 }
 
+.no-border {
+    text-decoration: none !important;
+}
+
 .header-nav__item {
     margin-right: 50px;
     text-decoration: none;
