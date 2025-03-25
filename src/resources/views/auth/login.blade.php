@@ -24,7 +24,9 @@
                 <input type="email" name="email" value="{{ old('email') }}">
             </div>
             <div class="form__group--error" style="color: red;">
-
+                @error('email')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="form__group">
@@ -35,7 +37,9 @@
                 <input type="password" name="password">
             </div>
             <div class="form__group--error" style="color: red;">
-
+                @error('password')
+                {{ $message }}
+                @enderror
             </div>
         </div>
 

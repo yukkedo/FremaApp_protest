@@ -49,57 +49,56 @@
     border-radius: 4px;
 }
 
-.page-tag {
-    margin-top: 50px;
-    border-bottom: 2px solid #5F5F5F;
+.change-address {
+    margin: 50px auto;
+    width: 40%;
 }
 
-.products-list {
-    text-decoration: none;
-    color: #FF0000;
-    font-weight: bold;
-    font-size: 20px;
-    margin-left: 150px;
-}
-
-.purchased-list {
-    text-decoration: none;
-    color: #5F5F5F;
-    font-weight: bold;
-    font-size: 20px;
-    margin-left: 50px;
-}
-
-.profile-content {
+.change-address__header {
     width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 20px;
 }
 
-.user {
-    width: 60%;
-    margin: 80px auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.form__group {
+    margin-bottom: 40px;
+    height: auto;
 }
 
-.user-img img {
-    height: 130px;
-    width: 130px;
-    background-color: #5F5F5F;
-    border-radius: 50%;
-    /* margin-right: 70px; */
-}
-
-.user-name h3 {
-    font-size: 25px;
-    /* margin-right: 00px; */
-}
-
-.profile__edit {
-    color: #FF5555;
-    text-decoration: none;
-    border: 2px solid #FF5555;
-    border-radius: 10px;
-    padding: 10px 15px;
+.form__group--title {
+    width: 100%;
     font-weight: bold;
+    font-size: 15px;
+}
+
+.form__group--content input {
+    width: 100%;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+    height: 40px;
+}
+
+.form__button--submit {
+    width: 100%;
+    background-color: #FF5555;
+    border-radius: 5px;
+    border: none;
+    height: 40px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.login__link {
+    width: 100%;
+    text-align: center;
+}
+
+.login__button {
+    color: #0073CC;
+    text-decoration: none;
+    padding: 30px;
 }
