@@ -15,15 +15,15 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
+            $table->foreignId('user_id')->nullable();
             $table->string('image');
             $table->integer('condition_id');
             $table->string('name');
             $table->string('brand')->nullable();
             $table->text('description');
             $table->integer('price');
-            $table->timestamp('created_at')->useCurrent()->nullable();
-            $table->timestamp('updated_at')->useCurrent()->nullable();
+            $table->boolean('is_purchased')->default(0)->comment('購入済みかどうか: 0=未購入, 1=購入済み');
+            $table->timestamps();
         });
     }
 

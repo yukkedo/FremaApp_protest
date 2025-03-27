@@ -18,11 +18,19 @@ class Item extends Model
         'brand',
         'description',
         'price',
+        'is_purchased'
     ];
 
+    // 1つの商品は1人のユーザーに紐付ける　1対多
     public function users()
     {
         return $this->belongsTo(User::class);
+    }
+
+    //　1つの商品は複数のユーザーのいいねを獲得する　多対多
+    public function getLikes()
+    {
+        return $this->belongsToMany(User::class);
     }
 
     public function categories()
@@ -33,5 +41,10 @@ class Item extends Model
     public function condition()
     {
         return $this->belongsTo(Condition::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
