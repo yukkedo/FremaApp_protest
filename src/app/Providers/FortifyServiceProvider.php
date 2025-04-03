@@ -16,6 +16,8 @@ use Laravel\Fortify\Contracts\LogoutResponse;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Laravel\Fortify\Contracts\RegisterResponse;
+use Illuminate\Http\RedirectResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -58,7 +60,13 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         // 会員登録後のリダイレクト設定
-        Fortify::redirects('/mypage/profile');
+        // Fortify::redirects('/mypage/profile');
+        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
+            public function toResponse($request)
+            {
+                return new RedirectResponse('/mypage/profile');
+            }
+        });
 
         Fortify::loginView(function () {
             return view('auth.login');

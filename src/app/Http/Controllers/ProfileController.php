@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Session;
 
 class ProfileController extends Controller
 {
+    public function show()
+    {
+        return view('mypage');
+    }
+
     public function profile()
     {
         $userName = Session::get('user_name');
@@ -29,6 +34,8 @@ class ProfileController extends Controller
         $profile->address = $validated['address'];
         $profile->building = $validated['building'];
         $profile->save();
+
+        Session::put('profile_completed_' . $user->id, true);
         
         return redirect('/');
     }
