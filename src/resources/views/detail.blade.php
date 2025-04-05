@@ -28,7 +28,7 @@
                 <a href="/login" class="header-nav__item--button no-border">ログイン</a>
             </li>
             @endif
-            <li><a href="" class="header-nav__item">マイページ</a></li>
+            <li><a href="/mypage" class="header-nav__item">マイページ</a></li>
             <li><a href="" class="header-nav__item--sell">出品</a></li>
         </ul>
     </nav>
@@ -48,19 +48,26 @@
             <p>{{$item->brand}}</p>
         </div>
         <div class="item-price">
-            <p>￥<span class="price-style">{{$item->price}} </span>(税込)</p>
+            <p>￥<span class="price-style">{{ number_format($item->price) }}</span>(税込)</p>
         </div>
         <div class="item-check">
-            <label for="favorite">
-                <input type="checkbox" id="favorite" class="favorite-checkbox">
-                <i class="fa-regular fa-star"></i>
-            </label>
-            <div class="button-comment">
+            <div class="item-check--like">
+                <form action="/item/{item_id}" method="post">
+                    @csrf
+                    <input type="hidden" name="item_id" value="{{ $item->id }}">
+                    <button type="submit" class="like-button border-none bg-transparent p-0">
+                        <input type="hidden" name="item_id" value="{{ $item->id }}">
+                        <span class="{{ $isLiked ? 'fas fa-star text-yellow-500' : 'far fa-star text-gray-400' }} text-4xl"></span>
+                    </button>
+                </form>
+                <p class="text-sm text-gray-600 mt-1">{{ $likeCount }}</p>
+            </div>
+            <div class="item-check--comment">
                 <i class="fa-regular fa-comment"></i>
             </div>
         </div>
         <div class="button-buy">
-            <button class="purchase-button">購入手続きへ</button>
+            <a class="purchase-button" href="/purchase/{{$item->id}}">購入手続きへ</a>
         </div>
         <div class="item__explain">
             <h3 class="item-title">商品説明</h3>
@@ -85,11 +92,11 @@
                     <p>admin</p>
                 </div>
                 <div class="comment-view">
-
+                    <p>こちらにコメントが入ります</p>
                 </div>
-                <div class="comment-post">
-                    <p>商品へのコメント</p>
-                    <textarea></textarea>
+                <div class="comment-area">
+                    <p class="label">商品へのコメント</p>
+                    <textarea class="comment-text"></textarea>
                 </div>
             </div>
         </div>

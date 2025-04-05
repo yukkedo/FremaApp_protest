@@ -86,21 +86,26 @@
     display: flex;
 }
 
-.favorite-checkbox {
-    display: none;
-}
-
-.fa-star {
+.item-check--like {
     margin-left: 30px;
     margin-bottom: 10px;
+    text-align: center;
+}
+
+.like-button {
+    background-color: #ffffff;
+    border: none;
+}
+
+/* .fa-star {
     font-size: 30px;
     color: gray;
     cursor: pointer;
 }
 
-.favorite-checkbox:checked+.fa-star {
+.fa-star:active {
     color: gold;
-}
+} */
 
 .fa-comment {
     margin-left: 40px;
