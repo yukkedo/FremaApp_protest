@@ -55,15 +55,15 @@
                 <form action="/item/{item_id}" method="post">
                     @csrf
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
-                    <button type="submit" class="like-button border-none bg-transparent p-0">
-                        <input type="hidden" name="item_id" value="{{ $item->id }}">
+                    <button type="submit" class="like-button border-none bg-transparent cursor-pointer">
                         <span class="{{ $isLiked ? 'fas fa-star text-yellow-500' : 'far fa-star text-gray-400' }} text-4xl"></span>
                     </button>
                 </form>
-                <p class="text-sm text-gray-600 mt-1">{{ $likeCount }}</p>
+                <p class="text-sm text-gray-600">{{ $likeCount }}</p>
             </div>
             <div class="item-check--comment">
                 <i class="fa-regular fa-comment"></i>
+                <p class="text-sm text-gray-600">{{ $commentCount }}</p>
             </div>
         </div>
         <div class="button-buy">
@@ -86,17 +86,24 @@
                 <p class="content--condition">{{$item->condition->name}}</p>
             </div>
             <div class="comment">
-                <h3 class="comment-title">コメント</h3>
+                <h3 class="comment-title">コメント（<span>{{$commentCount}}</span>）</h3>
+                @foreach($comments as $comment)
                 <div class="comment-user">
                     <img src="" alt="">
-                    <p>admin</p>
+                    <p>{{$comment->user->name}}</p>
                 </div>
                 <div class="comment-view">
-                    <p>こちらにコメントが入ります</p>
+                    <p>{{$comment->content}}</p>
                 </div>
+                @endforeach
                 <div class="comment-area">
                     <p class="label">商品へのコメント</p>
-                    <textarea class="comment-text"></textarea>
+                    <form action="/item/{item_id}" method="post">
+                        @csrf
+                        <input type="hidden" name="item_id" value="{{ $item->id }}">
+                        <textarea class="comment-text" name="content"></textarea>
+                        <button class="comment-button">コメントを送信する</button>
+                    </form>
                 </div>
             </div>
         </div>

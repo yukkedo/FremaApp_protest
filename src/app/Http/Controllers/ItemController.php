@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
+use App\Http\Requests\CommentRequest;
+use App\Models\Comment;
 
 class  ItemController extends Controller
 {
@@ -23,7 +25,8 @@ class  ItemController extends Controller
     // 商品詳細ページの取得
     public function getDetail($item_id)
     {
-        $item = Item::with('categories', 'condition')->findOrFail($item_id);
+        $item = Item::with(['categories', 'condition', 'comments.user'])->findOrFail($item_id);
+
         $user = auth()->user();
         $guestToken = Cookie::get('guest_token');
 
@@ -41,8 +44,14 @@ class  ItemController extends Controller
                 ->where('guest_token', $guestToken)
                 ->exists();
         }
+
+        // コメントの取得
+        $comments = $item->comments()->with('user')->latest()->get();
+        // コメント数の取得
+        $commentCount = $comments->count();
+
         // ビューに商品情報といいね状態を渡す
-        return view('detail', compact('item', 'likeCount', 'isLiked'));
+        return view('detail', compact('item', 'likeCount', 'isLiked', 'comments', 'commentCount'));
     }
 
     // いいね追加・削除機能
@@ -96,6 +105,22 @@ class  ItemController extends Controller
                 ]);
             }
         }
+        return back();
+    }
+
+    // コメント機能 
+    public function comment(CommentRequest $request)
+    {
+        if (!auth()->check()) {
+            return redirect('/login');
+        }
+
+        Comment::create([
+            'content' => $request->content,
+            'user_id' => auth()->id(),
+            'item_id' => $request->item_id,
+        ]);
+
         return back();
     }
     
