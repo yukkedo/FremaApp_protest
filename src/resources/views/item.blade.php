@@ -10,8 +10,9 @@
 
 @section('header')
 <div class="header">
-    <form class="header__search" action="">
-        <input class="header__search--input" type="text" placeholder="なにをお探しですか？">
+    <form class="header__search" action="/" method="get">
+        @csrf
+        <input class="header__search--input" type="text" name="search" value="{{request()->input('search')}}" placeholder="なにをお探しですか？">
     </form>
     <nav class="header-nav">
         <ul class="header-nav__list">
@@ -27,8 +28,8 @@
                 <a href="/login" class="header-nav__item--button no-border">ログイン</a>
             </li>
             @endif
-            <li><a href="" class="header-nav__item">マイページ</a></li>
-            <li><a href="" class="header-nav__item--sell">出品</a></li>
+            <li><a href="/mypage" class="header-nav__item">マイページ</a></li>
+            <li><a href="/sell" class="header-nav__item--sell">出品</a></li>
         </ul>
     </nav>
 </div>
@@ -37,10 +38,9 @@
 @section('content')
 <div class="item-list">
     <div class="page-tag">
-        <a href="" class="list-view">おすすめ</a>
-        <a href="" class="my-list">マイページ</a>
+        <a href="/" class="list-view">おすすめ</a>
+        <a href="/?tab=mylist" class="my-list">マイページ</a>
     </div>
-
 
     <div class="item__content">
         @foreach ($items as $item)
