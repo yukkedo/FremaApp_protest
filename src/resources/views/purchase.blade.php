@@ -38,40 +38,51 @@
 <div class="purchase">
     <div class="left-content">
         <div class="product-area">
-            <img src="" alt="商品画像" class="product__img">
+
+            <img src="{{ asset($item->image) }}" alt="商品画像" class="product__img">
             <div class="product__others">
-                <h3 class="product__other--name">{{$item->name}}</h3>
-                <p class="product__other--price">￥{{number_format($item->price)}}</p>
+                <h3 class="product__other--name">{{ $item->name }}</h3>
+                <p class="product__other--price">￥{{ number_format($item->price) }}</p>
             </div>
         </div>
         <div class="payment-area">
             <h3 class="left-content--title">支払い方法</h3>
-            <select name="" id="" class="payment__content">
-                <option value="" disabled selected hidden>選択してください</option>
-                <option value="">コンビニ払い</option>
-                <option value="">カード支払い</option>
-            </select>
+            <form action="/purchase/{{ $item->id }}" method="get">
+                <select name="payment_method" onchange="this.form.submit()" class=" payment__content">
+                    <option value="" disabled selected hidden {{ $paymentMethod === null ? 'selected' : '' }}>選択してください</option>
+                    <option value="convenience" {{ $paymentMethod === 'convenience' ? 'selected' : '' }}>コンビニ払い</option>
+                    <option value="card" {{ $paymentMethod === 'card' ? 'selected' : '' }}>カード支払い</option>
+                </select>
+            </form>
         </div>
         <div class="address-area">
             <div class="address-area--title">
                 <h3 class="left-content--title">配送先</h3>
-                <a href="" class="address__change">変更する</a>
+                <a href="/purchase/address/{item_id}" class="address__change">変更する</a>
             </div>
             <div class="address__content">
-                <p>〒000-0000</p>
-                <p>ここは住所と建物名が入ります</p>
+                @if($profile)
+                <p>〒{{ $profile->postcode }} </p>
+                <p>{{ $profile->address }}{{ $profile->building }}</p>
+                @endif
             </div>
         </div>
     </div>
-    <div class="right-content">
+    <div class=" right-content">
         <table class="payment__confirmation">
             <tr class="price__item">
                 <td class="payment__item--title">商品代金</td>
-                <td class="payment__item--content">￥47,000</td>
+                <td class="payment__item--content">￥{{ number_format($item->price) }}</td>
             </tr>
             <tr class="payment__item">
                 <td class="payment__item--title">支払い方法</td>
-                <td class="payment__item--content">コンビニ払い</td>
+                <td class="payment__item--content">
+                    @if($displayPayment === 'card')
+                    カード支払い
+                    @else
+                    コンビニ払い
+                    @endif
+                </td>
             </tr>
         </table>
         <div class="payment__button">

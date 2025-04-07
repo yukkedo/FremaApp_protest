@@ -154,7 +154,10 @@ class  ItemController extends Controller
         $user = Auth::user();
         $profile = $user->profile;
         
-        return view('purchase', compact('item', 'profile'));
+        $paymentMethod = request()->input('payment_method');
+        $displayPayment = $paymentMethod ?? 'convenience';
+
+        return view('purchase', compact('item', 'profile','paymentMethod', 'displayPayment'));
     }
 
     public function getChangeAddress()
