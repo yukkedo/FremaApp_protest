@@ -30,7 +30,7 @@ class Item extends Model
     //　1つの商品は複数のユーザーのいいねを獲得する　多対多
     public function likes()
     {
-        return $this->belongsToMany(Like::class);
+        return $this->hasMany(Like::class);
     }
 
     public function categories()

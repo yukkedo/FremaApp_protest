@@ -16,10 +16,27 @@ use App\Models\Comment;
 
 class  ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::all();
-        return view('item', compact('items'));
+        // 検索機能
+        $search = $request->input('search');
+        // $items = Item::where('name', 'LIKE', "%{$search}%")->get();
+        // マイリスト
+        $tab = $request->query('tab', 'all');
+        if($tab === 'mylist' && auth()->check())
+        {
+            $user = auth()->user();
+            $likes = Like::where('user_id', $user->id)->get();
+            $items = $likes->map(function ($like){
+                return $like->item;
+            });
+        } else {
+            $items = Item::all();
+            if($search) {
+                $items = Item::where('name', 'LIKE', "%{$search}%");
+            }
+        }
+        return view('item', compact('items', 'search', 'tab'));
     }
 
     // 商品詳細ページの取得
@@ -55,9 +72,9 @@ class  ItemController extends Controller
     }
 
     // いいね追加・削除機能
-    public function like(Request $request)
+    public function like(Request $request, $item_id)
     {
-        $item_id = $request->input('item_id');
+        // $item_id = $request->input('item_id');
         $item = Item::find($item_id);
         $user = auth()->user();
 

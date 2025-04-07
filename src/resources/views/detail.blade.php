@@ -52,7 +52,7 @@
         </div>
         <div class="item-check">
             <div class="item-check--like">
-                <form action="/item/{item_id}" method="post">
+                <form action="/item/{{ $item->id }}/like" method="post">
                     @csrf
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
                     <button type="submit" class="like-button border-none bg-transparent cursor-pointer">
@@ -98,7 +98,7 @@
                 @endforeach
                 <div class="comment-area">
                     <p class="label">商品へのコメント</p>
-                    <form action="/item/{item_id}" method="post">
+                    <form action="/item/{{ $item->id }}/comment" method="post">
                         @csrf
                         <input type="hidden" name="item_id" value="{{ $item->id }}">
                         <textarea class="comment-text" name="content"></textarea>

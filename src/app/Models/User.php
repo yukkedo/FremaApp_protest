@@ -54,8 +54,8 @@ class User extends Authenticatable
     }
 
     // 1人のユーザーが複数の投稿に対していいねをする　多対多
-    public function giveLikes()
+    public function likes()
     {
-        return $this->belongsToMany(Item::class, 'item_user', 'user_id', 'item_id');
+        return $this->hasMany(Like::class);
     }
 }
