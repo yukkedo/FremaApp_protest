@@ -14,13 +14,23 @@ class ProfileController extends Controller
 {
     public function show()
     {
-        return view('mypage');
+        $user = AUth::user();
+        return view('mypage', compact('user'));
     }
 
     public function profile()
     {
-        $userName = Session::get('user_name');
-        return view('edit_mypage', compact('userName'));
+        $fromRegister = Session::pull('user_name');
+        $user = Auth::user();
+
+        if($fromRegister)
+        {
+            $userName = $user->name;
+            return view('edit_mypage', compact('userName'));
+        } else {
+            $profile = $user->profile ?? new Profile();
+            return view('edit_mypage', compact('user', 'profile'));
+        }
     }
 
     public function edit(AddressRequest $request)
@@ -39,4 +49,6 @@ class ProfileController extends Controller
         
         return redirect('/');
     }
+
+    
 }

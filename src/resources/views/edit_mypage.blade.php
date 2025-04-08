@@ -52,46 +52,43 @@
                 <span class="form__label--item">ユーザー名</span>
             </div>
             <div class="form__group--content">
-                <input type="text" name="name" value="{{ Session::get('user_name') }}">
+                <input type="text" name="name" value="{{ $userName ?? $user->name }}">
             </div>
-            <div class="form__group--error" style="color: red;">
+            <!-- <div class="form__group--error" style="color: red;">
                 @error('name')
                 {{ $message }}
                 @enderror
-            </div>
+            </div> -->
         </div>
         <div class="form__group">
             <div class="form__group--title">
                 <span class="form__label--item">郵便番号</span>
             </div>
             <div class="form__group--content">
-                <input type="text" name="postcode" value="{{ old('postcode') }}">
+                <input type="text" name="postcode" value="{{ old('postcode', $profile->postcode ?? '') }}">
             </div>
-            <div class="form__group--error" style="color: red;">
-
-            </div>
+            <!-- <div class="form__group--error" style="color: red;">
+            </div> -->
         </div>
         <div class="form__group">
             <div class="form__group--title">
                 <span class="form__label--item">住所</span>
             </div>
             <div class="form__group--content">
-                <input type="text" name="address" value="{{ old('address') }}">
+                <input type="text" name="address" value="{{ old('address', $profile->address ?? '') }}">
             </div>
-            <div class="form__group--error" style="color: red;">
-
-            </div>
+            <!-- <div class="form__group--error" style="color: red;">
+                </div> -->
         </div>
         <div class="form__group">
             <div class="form__group--title">
                 <span class="form__label--item">建物名</span>
             </div>
             <div class="form__group--content">
-                <input type="text" name="building" value="{{ old('building') }}">
+                <input type="text" name="building" value="{{ old('building', $profile->building ?? '') }}">
             </div>
-            <div class="form__group--error" style="color: red;">
-
-            </div>
+            <!-- <div class="form__group--error" style="color: red;">
+                </div> -->
         </div>
 
         <div class="form__button">
