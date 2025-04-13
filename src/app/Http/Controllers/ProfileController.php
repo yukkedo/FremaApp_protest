@@ -9,12 +9,13 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Models\Item;
 
 class ProfileController extends Controller
 {
     public function show()
     {
-        $user = AUth::user();
+        $user = Auth::user();
         return view('mypage', compact('user'));
     }
 
@@ -50,5 +51,28 @@ class ProfileController extends Controller
         return redirect('/');
     }
 
-    
+    public function getChangeAddress(Request $request, $itemId)
+    {
+        $profile = Profile::where('user_id', Auth::id())->first();
+        $item = Item::find($itemId);
+
+        return view('change_address', [
+            'profile' => $profile,
+            'item' => $item
+        ]);
+    }
+
+    public function addressUpdate(Request $request, $itemId) 
+    {
+        $profile = Profile::where('user_id', Auth::id())->first();
+
+        if ($profile) {
+            $profile->update([
+                'postcode' => $request->postcode,
+                'address' => $request->address,
+                'building' => $request->building,
+            ]);
+        }
+        return redirect('/purchase/' . $itemId);
+    }
 }

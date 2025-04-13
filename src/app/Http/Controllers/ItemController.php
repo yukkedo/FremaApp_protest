@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
+use App\Models\Profile;
 
 class  ItemController extends Controller
 {
@@ -31,9 +32,10 @@ class  ItemController extends Controller
                 return $like->item;
             });
         } else {
-            $items = Item::all();
             if($search) {
-                $items = Item::where('name', 'LIKE', "%{$search}%");
+                $items = Item::where('name', 'LIKE', "%{$search}%")->get();
+            } else {
+                $items = Item::all();
             }
         }
         return view('item', compact('items', 'search', 'tab'));
@@ -160,8 +162,16 @@ class  ItemController extends Controller
         return view('purchase', compact('item', 'profile','paymentMethod', 'displayPayment'));
     }
 
-    public function getChangeAddress()
+    public function purchaseItem(Request $request, $itemId)
     {
-        return view('change_address');
+        $item = Item::find($itemId);
+
+        if($item && $item->is_purchased === 0){
+            $item->is_purchased = 1;
+            $item->save();
+
+            return redirect('/');
+        }
     }
+
 }

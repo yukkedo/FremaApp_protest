@@ -80,3 +80,14 @@
     gap: 50px;
     flex-wrap: wrap;
 }
+
+.item__name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sold-label {
+    color: red;
+    font-weight: bold;
+}
