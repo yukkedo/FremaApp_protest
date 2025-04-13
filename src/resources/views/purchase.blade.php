@@ -58,7 +58,7 @@
         <div class="address-area">
             <div class="address-area--title">
                 <h3 class="left-content--title">配送先</h3>
-                <a href="/purchase/address/{item_id}" class="address__change">変更する</a>
+                <a href="/purchase/address/{{ $item->id }}" class="address__change">変更する</a>
             </div>
             <div class="address__content">
                 @if($profile)
@@ -85,9 +85,10 @@
                 </td>
             </tr>
         </table>
-        <div class="payment__button">
-            <button class="button">購入する</button>
-        </div>
+        <form class="payment__button" action="/purchase/{{ $item->id }}" method="post">
+            @csrf
+            <button class="button" type="submit">購入する</button>
+        </form>
     </div>
 </div>
 @endsection

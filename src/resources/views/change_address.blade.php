@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-<title>マイページ</title>
+<title>住所変更</title>
 @endsection
 
 @section('css')
@@ -33,20 +33,18 @@
 @section('content')
 <div class="change-address">
     <div class="change-address__header">
-        <h2>住所のhね昂</h2>
+        <h2>住所の変更</h2>
     </div>
 
-    <form class="change-address__content" action="" method="post">
+    <form class="change-address__content" action="/purchase/address/{{ $item->id }}" method="post">
         @csrf
+        <input type="hidden" name="item_id" value="{{ $item->id }}">
         <div class="form__group">
             <div class="form__group--title">
                 <span class="form__label--item">郵便番号</span>
             </div>
             <div class="form__group--content">
-                <input type="text" name="postcode" value="{{ old('postcode') }}">
-            </div>
-            <div class="form__group--error" style="color: red;">
-
+                <input type="text" name="postcode" value="{{ $profile->postcode }}">
             </div>
         </div>
         <div class="form__group">
@@ -54,10 +52,7 @@
                 <span class="form__label--item">住所</span>
             </div>
             <div class="form__group--content">
-                <input type="text" name="address" value="{{ old('address') }}">
-            </div>
-            <div class="form__group--error" style="color: red;">
-
+                <input type="text" name="address" value="{{ $profile->address }}">
             </div>
         </div>
         <div class="form__group">
@@ -65,10 +60,7 @@
                 <span class="form__label--item">建物名</span>
             </div>
             <div class="form__group--content">
-                <input type="text" name="building" value="{{ old('building') }}">
-            </div>
-            <div class="form__group--error" style="color: red;">
-
+                <input type="text" name="building" value="{{ $profile->building }}">
             </div>
         </div>
 
