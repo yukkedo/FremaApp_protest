@@ -47,15 +47,18 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    // 1人のユーザーが複数の投稿をする　1対多
     public function items()
     {
         return $this->hasMany(Item::class);
     }
 
-    // 1人のユーザーが複数の投稿に対していいねをする　多対多
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
     }
 }

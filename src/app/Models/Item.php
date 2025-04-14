@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Requests\PurchaseRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,13 +22,11 @@ class Item extends Model
         'is_purchased'
     ];
 
-    // 1つの商品は1人のユーザーに紐付ける　1対多
     public function users()
     {
         return $this->belongsTo(User::class);
     }
 
-    //　1つの商品は複数のユーザーのいいねを獲得する　多対多
     public function likes()
     {
         return $this->hasMany(Like::class);
@@ -46,5 +45,10 @@ class Item extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function purchases()
+    {
+        return $this->hasOne(Purchase::class);
     }
 }

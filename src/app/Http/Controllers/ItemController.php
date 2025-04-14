@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Profile;
+use App\Models\Purchase;
 
 class  ItemController extends Controller
 {
@@ -169,6 +170,11 @@ class  ItemController extends Controller
         if($item && $item->is_purchased === 0){
             $item->is_purchased = 1;
             $item->save();
+
+            Purchase::create([
+                'user_id' => Auth::id(),
+                'item_id' => $item->id,
+            ]);
 
             return redirect('/');
         }
