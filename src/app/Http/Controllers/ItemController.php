@@ -180,4 +180,34 @@ class  ItemController extends Controller
         }
     }
 
+    // 商品出品(画像保存のみ)
+    public function storeImage(Request $request)
+    {
+        $path = $request->file('image')->store('public/item_img');
+        $filename = basename($path);
+        $publicPath = 'storage/item_img/' . $filename;
+
+        session(['image.path' => $publicPath]);
+
+        return back();
+    }
+
+    public function storeSell(Request $request)
+    {
+        $item = new Item();
+        $item->user_id = auth()->id();
+        $item->image = session('image.path');
+        $item->condition_id = $request->condition_id;
+        $item->name = $request->name;
+        $item->brand = $request->brand;
+        $item->description = $request->description;
+        $item->price = $request->price;
+        $item->is_purchased = 0;
+        $item->save();
+
+        $item->categories()->sync($request->categories);
+        session()->forget('image.path');
+
+        return redirect('/');
+    }
 }
