@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/item/{item_id}/comment', [ItemController::class, 'comment']);
     Route::get('/mypage', [ProfileController::class, 'show']);
     Route::get('/mypage/profile', [ProfileController::class, 'profile']);
+    Route::post('/mypage/profile/image', [ProfileController::class, 'imageEdit']);
     Route::post('/mypage/profile', [ProfileController::class, 'edit']);
     Route::get('/sell', [ItemController::class, 'getSell']);
     Route::post('/sell/image', [ItemController::class, 'storeImage']);

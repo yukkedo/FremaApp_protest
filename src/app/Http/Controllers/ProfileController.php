@@ -10,13 +10,23 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\Item;
+use App\Models\Purchase;
 
 class ProfileController extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
         $user = Auth::user();
-        return view('mypage', compact('user'));
+        $tab = $request->query('tab', 'sell');
+
+        $items = [];
+        if ($tab === 'sell') {
+            $items = Item::where('user_id', $user->id)->get();
+        } elseif ($tab === 'buy') {
+            $purchasedId = Purchase::where('user_id', $user->id)->pluck('item_id');
+            $items = Item::whereIn('id', $purchasedId)->get();
+        }
+        return view('mypage', compact('user', 'tab', 'items'));
     }
 
     public function profile()
@@ -24,8 +34,7 @@ class ProfileController extends Controller
         $fromRegister = Session::pull('user_name');
         $user = Auth::user();
 
-        if($fromRegister)
-        {
+        if ($fromRegister) {
             $userName = $user->name;
             return view('edit_mypage', compact('userName'));
         } else {
@@ -34,20 +43,31 @@ class ProfileController extends Controller
         }
     }
 
+    public function imageEdit(ProfileRequest $request)
+    {
+        $path = $request->file('image')->store('public/user_img');
+        $filename = basename($path);
+        $publicPath = 'user_img/' . $filename;
+        session(['profile.image_path'  => $publicPath]);
+        
+        return back();
+    }
+
     public function edit(AddressRequest $request)
     {
-        $validated = $request->validated();
-        $user = Auth::user();
+        $profile = auth()->user()->profile ?? new Profile();
+        $profile->user_id = auth()->id();
+        $profile->postcode = $request->postcode;
+        $profile->address = $request->address;
+        $profile->building = $request->building;
 
-        $profile = $user->profile ?? new Profile();  // プロフィールが存在しなければ新規作成
-        $profile->user_id = $user->id;
-        $profile->postcode = $validated['postcode'];
-        $profile->address = $validated['address'];
-        $profile->building = $validated['building'];
+        if (session('profile.image_path')) {
+            $profile->image = str_replace('storage/', '', session('profile.image_path'));
+            session()->forget('profile.image_path');
+        }
+
         $profile->save();
 
-        Session::put('profile_completed_' . $user->id, true);
-        
         return redirect('/');
     }
 
@@ -62,7 +82,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function addressUpdate(Request $request, $itemId) 
+    public function addressUpdate(Request $request, $itemId)
     {
         $profile = Profile::where('user_id', Auth::id())->first();
 

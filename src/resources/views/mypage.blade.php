@@ -49,16 +49,21 @@
     </div>
 
     <div class="page-tag">
-        <a href="" class="products-list">出品した商品</a>
-        <a href="" class="purchased-list">購入した商品</a>
+        <a href="/mypage?tab=sell" class="products-list">出品した商品</a>
+        <a href="/mypage?tab=buy" class="purchased-list">購入した商品</a>
     </div>
     <div class="tag-content">
-        <div class="product-item">
-
+        @foreach ($items as $item)
+        <div class="item__group">
+            <div class="item__img">
+                <a href="/item/{{$item->id}}">
+                    <img src="{{ asset($item->image) }}" alt="商品画像" width="250px" height="250px">
+                </a>
+            </div>
+            <div class="item__name">
+                <p>{{$item->name}}</p>
+            </div>
         </div>
-        <div class="purchased-item">
-
-        </div>
+        @endforeach
     </div>
-</div>
-@endsection
+    @endsection
