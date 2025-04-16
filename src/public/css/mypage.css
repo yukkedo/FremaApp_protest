@@ -102,3 +102,21 @@
     padding: 10px 15px;
     font-weight: bold;
 }
+
+.tag-content {
+    margin: 80px 50px;
+    display: flex;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.item__group {
+    display: flex;
+    flex-direction: column;
+}
+
+.item__name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
