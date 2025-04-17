@@ -17,6 +17,7 @@ class ItemsTableSeeder extends Seeder
         DB::table('items')->insert([
             [
                 'image' => 'storage/item_img/watch.jpg',
+                'user_id' => '1',
                 'condition_id' => '1',
                 'name' => '腕時計',
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
@@ -24,6 +25,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/hdd.jpg',
+                'user_id' => '2',
                 'condition_id' => '2',
                 'name' => 'HDD',
                 'description' => '高速で信頼性の高いハードディスク',
@@ -31,6 +33,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/onion.jpg',
+                'user_id' => '3',
                 'condition_id' => '3',
                 'name' => '玉ねぎ3束',
                 'description' => '新鮮な玉ねぎ3束のセット',
@@ -38,6 +41,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/shoes.jpg',
+                'user_id' => '1',
                 'condition_id' => '4',
                 'name' => '革靴',
                 'description' => 'クラシックなデザインの革靴',
@@ -45,6 +49,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/pc.jpg',
+                'user_id' => '2',
                 'condition_id' => '1',
                 'name' => 'ノートPC',
                 'description' => '高性能なノートパソコン',
@@ -52,6 +57,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/mike.jpg',
+                'user_id' => '3',
                 'condition_id' => '2',
                 'name' => 'マイク',
                 'description' => '高品質のレコーディング用マイク',
@@ -59,6 +65,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/shoulderbag.jpg',
+                'user_id' => '1',
                 'condition_id' => '3',
                 'name' => 'ショルダーバッグ',
                 'description' => 'おしゃれなショルダーバッグ',
@@ -66,6 +73,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/tumbler.jpg',
+                'user_id' => '2',
                 'condition_id' => '4',
                 'name' => 'タンブラー',
                 'description' => '使いやすいタンブラー',
@@ -73,6 +81,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/coffeemill.jpg',
+                'user_id' => '3',
                 'condition_id' => '1',
                 'name' => 'コーヒーミル',
                 'description' => '手動のコーヒーミル',
@@ -80,6 +89,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/makeup.jpg',
+                'user_id' => '1',
                 'condition_id' => '2',
                 'name' => 'メイクセット',
                 'description' => '便利なメイクアップセット',
