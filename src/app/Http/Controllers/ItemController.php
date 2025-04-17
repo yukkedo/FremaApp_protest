@@ -66,7 +66,7 @@ class  ItemController extends Controller
         }
 
         // コメントの取得
-        $comments = $item->comments()->with('user')->latest()->get();
+        $comments = $item->comments()->with('user.profile')->latest()->get();
         // コメント数の取得
         $commentCount = $comments->count();
 

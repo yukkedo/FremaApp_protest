@@ -29,7 +29,7 @@
             </li>
             @endif
             <li><a href="/mypage" class="header-nav__item">マイページ</a></li>
-            <li><a href="" class="header-nav__item--sell">出品</a></li>
+            <li><a href="/sell" class="header-nav__item--sell">出品</a></li>
         </ul>
     </nav>
 </div>
@@ -89,8 +89,8 @@
                 <h3 class="comment-title">コメント（<span>{{$commentCount}}</span>）</h3>
                 @foreach($comments as $comment)
                 <div class="comment-user">
-                    <img src="" alt="">
-                    <p>{{$comment->user->name}}</p>
+                    <img src="{{ optional($comment->user->profile)->image ? asset('storage/' .$comment->user->profile->image) : asset('storage/user_img/default.png') }}" alt="プロフィール画像" width="50px" height="50px" style="border-radius: 50%;">
+                    <p class="user-name">{{$comment->user->name}}</p>
                 </div>
                 <div class="comment-view">
                     <p>{{$comment->content}}</p>
