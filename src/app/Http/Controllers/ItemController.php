@@ -23,13 +23,17 @@ class  ItemController extends Controller
         $search = $request->input('search');
         $tab = $request->query('tab', 'all');
 
-        if($tab === 'mylist' && auth()->check())
+        if($tab === 'mylist')
         {
-            $user = auth()->user();
-            $likes = Like::where('user_id', $user->id)->get();
-            $items = $likes->map(function ($like){
-                return $like->item;
-            });
+            if(auth()->check()){
+                $user = auth()->user();
+                $likes = Like::where('user_id', $user->id)->get();
+                $items = $likes->map(function ($like){
+                    return $like->item;
+                });
+            } else {
+                $items = collect();
+            }
         } else {
             $query = Item::query();
             if($search) {

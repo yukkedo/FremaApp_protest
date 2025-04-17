@@ -1,5 +1,6 @@
 <?php
 
+use Laravel\Fortify\Fortify;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ Route::get('/', function () {
     return view('/');
 });
 
-Route::get('/login', [AuthController::class, 'loginShow']);
+Route::get('/login', [AuthController::class, 'loginShow'])->name('login');
 Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item_id}', [ItemController::class, 'getDetail']);
 Route::post('/item/{item_id}/like', [ItemController::class, 'like']);

@@ -39,7 +39,7 @@
 <div class="item-list">
     <div class="page-tag">
         <a href="/" class="list-view">おすすめ</a>
-        <a href="/?tab=mylist" class="my-list">マイページ</a>
+        <a href="/?tab=mylist" class="my-list">マイリスト</a>
     </div>
 
     <div class="item__content">
