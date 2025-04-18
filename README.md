@@ -22,6 +22,7 @@
 * MySQL : 8.0.26
 * nginx : 1.21.1
 
-
 ## ER図
+<img width="482" alt="Image" src="https://github.com/user-attachments/assets/77d4eedb-0593-4081-ba11-648962597f9f" />
+
 
