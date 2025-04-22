@@ -74,6 +74,10 @@
     height: auto;
 }
 
+.item-name {
+    height: 30px;
+}
+
 .item-name h3 {
     font-size: 30px;
 }
