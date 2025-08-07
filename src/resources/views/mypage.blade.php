@@ -23,7 +23,7 @@
                 </form>
             </li>
             @endif
-            <li><a href="" class="header-nav__item">マイページ</a></li>
+            <li><a href="/mypage?tab=sell" class="header-nav__item">マイページ</a></li>
             <li><a href="/sell" class="header-nav__item--sell">出品</a></li>
         </ul>
     </nav>
@@ -37,11 +37,12 @@
             @if ($user->profile && $user->profile->image)
             <img src="{{ asset('storage/' . $user->profile->image) }}" alt="プロフィール画像">
             @else
-            <img src="{{ asset('storage/user_img/default.png') }}" alt="デフォルト画像">
+            <div class="default-profile"></div>
             @endif
         </div>
         <div class="user-name">
             <h3>{{ $user->name }}</h3>
+            <!-- レビュー機能追加予定 -->
         </div>
         <div class=" user-button">
             <a class="profile__edit" href="/mypage/profile">プロフィールを編集する</a>
@@ -49,8 +50,9 @@
     </div>
 
     <div class="page-tag">
-        <a href="/mypage?tab=sell" class="products-list">出品した商品</a>
-        <a href="/mypage?tab=buy" class="purchased-list">購入した商品</a>
+        <a href="/mypage?tab=sell" class="tag {{ request('tab', 'sell') == 'sell' ? 'active' : '' }}">出品した商品</a>
+        <a href="/mypage?tab=buy" class="tag {{ request('tab', 'buy') == 'buy' ? 'active' : '' }}">購入した商品</a>
+        <a href="/mypage?tab=trading" class="tag {{ request('tab', 'trading') == 'trading' ? 'active' : '' }}">取引中の商品</a>
     </div>
     <div class="tag-content">
         @foreach ($items as $item)

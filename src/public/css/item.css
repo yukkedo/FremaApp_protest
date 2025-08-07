@@ -55,23 +55,24 @@
 
 .page-tag {
     margin-top: 50px;
+    padding-bottom: 10px;
     border-bottom: 2px solid #5F5F5F;
 }
 
-.list-view {
+.list {
     text-decoration: none;
     color: #5F5F5F;
     font-weight: bold;
     font-size: 20px;
+    margin-left: 70px;
+}
+
+.list:first-child {
     margin-left: 150px;
 }
 
-.my-list {
-    text-decoration: none;
+.list.active {
     color: #FF0000;
-    font-weight: bold;
-    font-size: 20px;
-    margin-left: 50px;
 }
 
 .item__content {

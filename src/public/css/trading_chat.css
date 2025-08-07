@@ -1,0 +1,135 @@
+.content {
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+.sidebar {
+    width: 20%;
+    height: 100vh;
+    background-color: #868686;
+}
+
+.sidebar__title {
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 30px;
+    text-align: center;
+    margin: 10px;
+}
+
+.chat-container {
+    width: 80%;
+}
+
+.seller-data {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #5F5F5F;
+    padding: 0 30px;
+}
+
+.trading__button {
+    margin-left: auto;
+    color: #FFFFFF;
+    background-color: #FF8282;
+    border: none;
+    border-radius: 30px;
+    height: 50px;
+    width: 140px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.trading__button:hover {
+    background-color: #FF5555;
+}
+
+.items {
+    height: 180px;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #5F5F5F;
+}
+
+.items img {
+    background-color: #868686;
+}
+
+.item__data {
+    margin-left: 30px;
+}
+
+.item--name {
+    font-size: 40px;
+    font-weight: bold;
+    height: 40px;
+}
+
+.item--price {
+    font-size: 30px;
+    font-weight: 400;
+    height: 30px;
+    margin-bottom: 50px;
+}
+
+.messages {
+    padding: 0 30px;
+    width: 100%;
+}
+
+.chat__messages--left {
+    width: 50%;
+    float: left;
+}
+
+.chat__messages--right {
+    width: 50%;
+    float: right;
+    text-align: right;
+}
+
+.chat__clear {
+    clear: both;
+}
+
+.message--send {
+    padding: 15px 30px;
+    height: 80px;
+    width: 80%;
+    position: fixed;
+    bottom: 0;
+    left: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.send--text {
+    width: 80%;
+    height: 40px;
+    padding: 10px 10px;
+    
+}
+
+.send--img {
+    border: 2px solid #FF5555;
+    border-radius: 10px;
+    color: #FF5555;
+    background-color: #FFFFFF;
+    width: 130px;
+    height: 40px;
+    padding: 8px 10px;
+    margin: 0 10px;
+}
+
+.send-button {
+    border: none;
+    background-color: #FFFFFF;
+}
+.send-button img {
+    width: 40px;
+    height: 40px;
+}
