@@ -23,4 +23,9 @@ class Purchase extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    public function chatRoom()
+    {
+        return $this->hasOne(ChatRoom::class);
+    }
 }
