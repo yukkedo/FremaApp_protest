@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePurchasesTable extends Migration
+class CreateChatMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreatePurchasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchases', function (Blueprint $table) {
+        Schema::create('chat_messages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('chat_room_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('item_id')->constrained()->onDelete('cascade');
-            $table->tinyInteger('status')->default(0)->comment('0=取引中, 1=評価完了');
+            $table->text('message');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreatePurchasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchases');
+        Schema::dropIfExists('chat_messages');
     }
 }

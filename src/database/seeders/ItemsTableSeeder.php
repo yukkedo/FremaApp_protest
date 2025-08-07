@@ -26,7 +26,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/hdd.jpg',
-                'user_id' => '2',
+                'user_id' => '1',
                 'condition_id' => '2',
                 'name' => 'HDD',
                 'brand' => 'Syntique',
@@ -35,7 +35,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/onion.jpg',
-                'user_id' => '3',
+                'user_id' => '1',
                 'condition_id' => '3',
                 'name' => '玉ねぎ3束',
                 'brand' => 'Luvéro',
@@ -53,7 +53,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/pc.jpg',
-                'user_id' => '2',
+                'user_id' => '1',
                 'condition_id' => '1',
                 'name' => 'ノートPC',
                 'brand' => 'Nuvetta',
@@ -62,7 +62,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/mike.jpg',
-                'user_id' => '3',
+                'user_id' => '2',
                 'condition_id' => '2',
                 'name' => 'マイク',
                 'brand' => 'Kaeliv',
@@ -71,7 +71,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/shoulderbag.jpg',
-                'user_id' => '1',
+                'user_id' => '2',
                 'condition_id' => '3',
                 'name' => 'ショルダーバッグ',
                 'brand' => 'Orrélle',
@@ -89,7 +89,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/coffeemill.jpg',
-                'user_id' => '3',
+                'user_id' => '2',
                 'condition_id' => '1',
                 'name' => 'コーヒーミル',
                 'brand' => 'Treliant',
@@ -98,7 +98,7 @@ class ItemsTableSeeder extends Seeder
             ],
             [
                 'image' => 'storage/item_img/makeup.jpg',
-                'user_id' => '1',
+                'user_id' => '2',
                 'condition_id' => '2',
                 'name' => 'メイクセット',
                 'brand' => 'Myssoro',
