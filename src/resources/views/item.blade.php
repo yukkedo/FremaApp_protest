@@ -52,7 +52,7 @@
             </div>
             <div class="item__name">
                 <p>{{$item->name}}</p>
-                @if($item->is_purchased == 1)
+                @if($item->purchase && $item->purchase->status == 0)
                 <p class="sold-label">sold</p>
                 @endif
             </div>

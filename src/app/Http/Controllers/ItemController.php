@@ -35,7 +35,8 @@ class  ItemController extends Controller
                 $items = collect();
             }
         } else {
-            $query = Item::query();
+            $query = Item::query()->with(['purchase']);
+
             if($search) {
                 $query->where('name', 'LIKE', "%{$search}%");
             } 
@@ -158,17 +159,21 @@ class  ItemController extends Controller
     {
         $item = Item::find($itemId);
 
-        if($item && $item->is_purchased === 0){
-            $item->is_purchased = 1;
-            $item->save();
+        $tradingPurchased = Purchase::where('item_id', $itemId)
+            ->where('status', 0)
+            ->exists();
 
-            Purchase::create([
-                'user_id' => Auth::id(),
-                'item_id' => $item->id,
-            ]);
-
+        if($tradingPurchased) {
             return redirect('/');
         }
+
+        Purchase::create([
+            'user_id' => Auth::id(),
+            'item_id' => $item->id,
+            'status' => 0,
+        ]);
+
+        return redirect('/');
     }
 
     public function storeImage(Request $request)
@@ -199,5 +204,10 @@ class  ItemController extends Controller
         session()->forget('image.path');
 
         return redirect('/');
+    }
+
+    public function getTrading()
+    {
+        return view('trading_chat');
     }
 }
