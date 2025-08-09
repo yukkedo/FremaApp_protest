@@ -22,7 +22,7 @@ class Item extends Model
         'is_purchased'
     ];
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

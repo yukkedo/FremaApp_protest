@@ -23,9 +23,26 @@ class ProfileController extends Controller
         if ($tab === 'sell') {
             $items = Item::where('user_id', $user->id)->get();
         } elseif ($tab === 'buy') {
-            $purchasedId = Purchase::where('user_id', $user->id)->pluck('item_id');
-            $items = Item::whereIn('id', $purchasedId)->get();
+            $purchasedCompletedIds = Purchase::where('user_id', $user->id)
+                ->where('status', 1)
+                ->pluck('item_id');
+            $items = Item::whereIn('id', $purchasedCompletedIds)->get();
+        } elseif ($tab === 'trading') {
+            $purchasedTradingIds = Purchase::where('user_id', $user->id)
+                ->where('status', 0)
+                ->pluck('item_id');
+
+            $sellingTradingIds = Purchase::whereHas('item', function($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+                ->where('status', 0)
+                ->pluck('item_id');
+
+            $allTradingIds = $purchasedTradingIds->merge($sellingTradingIds)->unique();
+
+            $items = Item::whereIn('id', $allTradingIds)->get();
         }
+        
         return view('mypage', compact('user', 'tab', 'items'));
     }
 

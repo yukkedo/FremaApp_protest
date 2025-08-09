@@ -58,9 +58,15 @@
         @foreach ($items as $item)
         <div class="item__group">
             <div class="item__img">
+                @if ($tab === 'trading')
+                <a href="/trading/{{$item->id}}">
+                    <img src="{{ asset($item->image) }}" alt="商品画像" width="250px" height="250px">
+                </a>
+                @else
                 <a href="/item/{{$item->id}}">
                     <img src="{{ asset($item->image) }}" alt="商品画像" width="250px" height="250px">
                 </a>
+                @endif
             </div>
             <div class="item__name">
                 <p>{{$item->name}}</p>

@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 use App\Http\Requests\CommentRequest;
+use App\Models\ChatRoom;
 use App\Models\Comment;
 use App\Models\Profile;
 use App\Models\Purchase;
+use Illuminate\Support\Facades\DB;
 
 class  ItemController extends Controller
 {
@@ -167,11 +169,17 @@ class  ItemController extends Controller
             return redirect('/');
         }
 
-        Purchase::create([
-            'user_id' => Auth::id(),
-            'item_id' => $item->id,
-            'status' => 0,
-        ]);
+        DB::transaction(function () use ($item){
+            $purchase = Purchase::create([
+                'user_id' => Auth::id(),
+                'item_id' => $item->id,
+                'status' => 0,
+            ]);
+
+            $chatRoom = ChatRoom::create([
+                'purchase_id' => $purchase->id,
+            ]);
+        });
 
         return redirect('/');
     }
@@ -204,10 +212,5 @@ class  ItemController extends Controller
         session()->forget('image.path');
 
         return redirect('/');
-    }
-
-    public function getTrading()
-    {
-        return view('trading_chat');
     }
 }
