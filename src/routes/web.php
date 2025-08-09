@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TradingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,6 @@ Route::get('/item/{item_id}', [ItemController::class, 'getDetail']);
 Route::post('/item/{item_id}/like', [ItemController::class, 'like']);
 Route::get('/purchase/address', [ItemController::class,'getChangeAddress']);
 
-
 Route::middleware(['auth'])->group(function () {
     Route::post('/item/{item_id}/comment', [ItemController::class, 'comment']);
     Route::get('/mypage', [ProfileController::class, 'show']);
@@ -42,4 +42,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/purchase/{item_id}', [ItemController::class, 'purchaseItem']);
     Route::get('/purchase/address/{item_id}', [ProfileController::class, 'getChangeAddress']);
     Route::post('/purchase/address/{item_id}', [ProfileController::class, 'addressUpdate']);
+    Route::get('/trading/{item_id}', [TradingController::class, 'showChat']);
+    Route::post('/trading/{chatRoomId}/send', [TradingController::class, 'sendMessage']);
 });
