@@ -52,18 +52,34 @@
     <div class="page-tag">
         <a href="/mypage?tab=sell" class="tag {{ request('tab', 'sell') == 'sell' ? 'active' : '' }}">出品した商品</a>
         <a href="/mypage?tab=buy" class="tag {{ request('tab', 'buy') == 'buy' ? 'active' : '' }}">購入した商品</a>
-        <a href="/mypage?tab=trading" class="tag {{ request('tab', 'trading') == 'trading' ? 'active' : '' }}">取引中の商品</a>
+        <a href="/mypage?tab=trading" class="tag {{ request('tab', 'trading') == 'trading' ? 'active' : '' }}">
+            取引中の商品
+            @if ($totalUnreadCount > 0)
+            <span class="total-unread-count">
+                {{ $totalUnreadCount }}
+            </span>
+            @endif
+        </a>
     </div>
     <div class="tag-content">
         @foreach ($items as $item)
         <div class="item__group">
             <div class="item__img">
                 @if ($tab === 'trading')
-                <a href="/trading/{{$item->id}}">
+                <a href="/trading/{{$item->id}}" class="item-image__wrapper">
                     <img src="{{ asset($item->image) }}" alt="商品画像" width="250px" height="250px">
                 </a>
+                @php
+                $chatRoomId = $itemChatRoomMap[$item->id] ?? null;
+                $unread = $chatRoomId ? ($unreadCounts[$chatRoomId] ?? 0) : 0;
+                @endphp
+                @if ($unread > 0)
+                <span class="unread-count">
+                    {{ $unread }}
+                </span>
+                @endif
                 @else
-                <a href="/item/{{$item->id}}">
+                <a href="/item/{{$item->id}}" class="item-image__wrapper">
                     <img src="{{ asset($item->image) }}" alt="商品画像" width="250px" height="250px">
                 </a>
                 @endif
@@ -74,4 +90,5 @@
         </div>
         @endforeach
     </div>
-    @endsection
+</div>
+@endsection

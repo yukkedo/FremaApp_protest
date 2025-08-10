@@ -71,6 +71,18 @@
     color: #FF0000;
 }
 
+.total-unread-count {
+    display: inline-block;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+
 .profile-content {
     width: 100%;
 }
@@ -125,4 +137,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.item__img {
+    position: relative;
+    display: inline-block;
+}
+
+.unread-count {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
 }

@@ -7,6 +7,7 @@ use App\Models\ChatRoom;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TradingController extends Controller
 {
@@ -23,6 +24,12 @@ class TradingController extends Controller
         $chatRoom = $purchase->chatRoom;
         $messages = collect();
         if ($chatRoom) {
+            DB::table('chat_messages')
+                ->where('chat_room_id', $chatRoom->id)
+                ->where('user_id', '!=', $user->id)
+                ->whereNull('read_at')
+                ->update(['read_at' => now()]);
+
             $messages = $chatRoom->messages()
                 ->with('user')
                 ->orderBy('created_at', 'asc')
@@ -93,6 +100,9 @@ class TradingController extends Controller
             'message' => $request->input('message'),
             'image' => $imagePath,
         ]);
+
+        $chatRoom->last_message_at = now();
+        $chatRoom->save();
 
         return redirect()->back();
     }

@@ -16,6 +16,7 @@ class CreateChatRoomsTable extends Migration
         Schema::create('chat_rooms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('purchase_id')->unique()->constrained()->onDelete('cascade');
+            $table->dateTime('last_message_at')->nullable();
             $table->timestamps();
         });
     }

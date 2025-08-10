@@ -6,11 +6,14 @@ use App\Http\Requests\AddressRequest;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
+use App\Models\ChatMessage;
+use App\Models\ChatRoom;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\Item;
 use App\Models\Purchase;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -19,7 +22,49 @@ class ProfileController extends Controller
         $user = Auth::user();
         $tab = $request->query('tab', 'sell');
 
-        $items = [];
+        $items = collect();
+        $chatRooms = collect();
+        $unreadCounts = [];
+        $totalUnreadCount = 0;
+
+        $purchasedTradingIds = Purchase::where('user_id', $user->id)
+            ->where('status', 0)
+            ->pluck('item_id');
+
+        $sellingTradingIds = Purchase::whereHas('item', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })
+            ->where('status', 0)
+            ->pluck('item_id');
+
+        $allTradingIds = $purchasedTradingIds->merge($sellingTradingIds)->unique();
+
+        $purchases = Purchase::whereIn('item_id', $allTradingIds)->get()->keyBy('item_id');
+
+        $chatRoomIds = [];
+        $lastMessageMap = [];
+
+        foreach ($purchases as $purchase) {
+            $chatRoom = ChatRoom::where('purchase_id', $purchase->id)->first();
+            if ($chatRoom) {
+                $itemChatRoomMap[$purchase->item_id] = $chatRoom->id;
+                $lastMessageMap[$purchase->item_id] = $chatRoom->last_message_at;
+                $chatRoomIds[] = $chatRoom->id;
+            }
+        }
+
+        if (!empty($chatRoomIds)) {
+            $unreadCounts = DB::table('chat_messages')
+                ->select('chat_room_id', DB::raw('COUNT(*) as unread_count'))
+                ->whereIn('chat_room_id', $chatRoomIds)
+                ->where('user_id', '!=', $user->id)
+                ->whereNull('read_at')
+                ->groupBy('chat_room_id')
+                ->pluck('unread_count', 'chat_room_id');
+
+            $totalUnreadCount = $unreadCounts->sum();
+        }
+
         if ($tab === 'sell') {
             $items = Item::where('user_id', $user->id)->get();
         } elseif ($tab === 'buy') {
@@ -28,22 +73,17 @@ class ProfileController extends Controller
                 ->pluck('item_id');
             $items = Item::whereIn('id', $purchasedCompletedIds)->get();
         } elseif ($tab === 'trading') {
-            $purchasedTradingIds = Purchase::where('user_id', $user->id)
-                ->where('status', 0)
-                ->pluck('item_id');
-
-            $sellingTradingIds = Purchase::whereHas('item', function($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })
-                ->where('status', 0)
-                ->pluck('item_id');
-
-            $allTradingIds = $purchasedTradingIds->merge($sellingTradingIds)->unique();
-
-            $items = Item::whereIn('id', $allTradingIds)->get();
+            $items = Item::whereIn('id', $allTradingIds)
+                ->get()
+                ->sortByDesc(function ($item) use ($lastMessageMap) {
+                    return $lastMessageMap[$item->id] ?? null;
+                })
+                ->values();
+        } else {
+            $items = collect();
         }
         
-        return view('mypage', compact('user', 'tab', 'items'));
+        return view('mypage', compact('user', 'tab', 'items', 'unreadCounts', 'itemChatRoomMap','totalUnreadCount'));
     }
 
     public function profile()
