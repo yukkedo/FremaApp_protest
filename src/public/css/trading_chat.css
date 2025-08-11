@@ -154,7 +154,13 @@
 }
 
 .chat__message--content {
-    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.chat__edit-form {
+    flex-direction: column;
+    gap: 8px;
 }
 
 .chat__message--text {
@@ -162,7 +168,24 @@
     border-radius: 4px;
     border: none;
     height: 50px;
+    width: 100%;
     padding: 8px 16px;
+    box-sizing: border-box;
+}
+
+.chat__buttons-row {
+    gap: 8px;
+}
+
+.edit {
+    margin: 5px 100px 5px 0;
+    
+}
+
+.delete {
+    position: absolute;
+    top: 55px;
+    right: 30px;
 }
 
 .edit,
@@ -172,9 +195,9 @@
     border: none;
     border-radius: 4px;
     box-shadow: 0px 4px 4px 0px #00000040;
-    margin: 5px 10px;
     padding: 3px 5px;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .chat__message--user-left {
@@ -219,7 +242,7 @@
     width: 80%;
     height: 40px;
     padding: 10px 10px;
-    
+
 }
 
 .send--img {
@@ -237,6 +260,7 @@
     border: none;
     background-color: #FFFFFF;
 }
+
 .send-button img {
     width: 40px;
     height: 40px;

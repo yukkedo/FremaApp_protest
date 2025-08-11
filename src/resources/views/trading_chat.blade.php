@@ -64,52 +64,59 @@
                         <div class="default-img--right"></div>
                         @endif
                     </div>
-                    <div class=" chat__message--content">
-                        <div class="chat__message--text">
-                            {{ $message->message }}
-                        </div>
-                        <div class="chat__message--action">
-                            <button class="edit">編集</button>
-                            <button class="delete">削除</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="chat__clear"></div>
-            @else
-            <div class="chat__messages--left">
-                <div class="chat__message--box">
-                    <div class="chat__message--user-left">
-                        @if ($message->user->profile && $message->user->profile->image)
-                        <img src="{{ $message->user->profile->image}}" alt="プロフィール画像" class="user-img--left">
-                        @else
-                        <div class="default-img--left"></div>
-                        @endif
-                        <p class="user-name--left">
-                            {{ $message->user->name }}
-                        </p>
-                    </div>
                     <div class="chat__message--content">
-                        <div class="chat__message--text">
-                            {{ $message->message }}
-                        </div>
+                        <form action="/trading/{{ $chatRoom->id }}/message/{{ $message->id }}" method="post" class="chat__edit-form">
+                            @csrf
+                            @method('PUT')
+                            <input class="chat__message--text" value="{{ $message->message }}" name="message" type="text">
+                            <div class="chat__buttons-row">
+                                <button class="edit" type="submit">編集</button>
+                            </div>
+                        </form>
+                        <form action="/trading/{{ $chatRoom->id }}/message/{{ $message->id }}" method="post" class="chat__delete-form">
+                            @csrf
+                            @method('DELETE')
+                            <button class="delete" type="submit">削除</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="chat__clear"></div>
-            @endif
-            @endforeach
+        
+        <div class="chat__clear"></div>
+        @else
+        <div class="chat__messages--left">
+            <div class="chat__message--box">
+                <div class="chat__message--user-left">
+                    @if ($message->user->profile && $message->user->profile->image)
+                    <img src="{{ $message->user->profile->image}}" alt="プロフィール画像" class="user-img--left">
+                    @else
+                    <div class="default-img--left"></div>
+                    @endif
+                    <p class="user-name--left">
+                        {{ $message->user->name }}
+                    </p>
+                </div>
+                <div class="chat__message--content">
+                    <div class="chat__message--text">
+                        {{ $message->message }}
+                    </div>
+                </div>
+            </div>
         </div>
-        <form class="message--send" action="/trading/{{ $chatRoom->id }}/send" method="post" enctype="multipart/form-data">
-            @csrf
-            <textarea name="message" placeholder="取引メッセージを記入してください" class="send--text"></textarea>
-
-            <input type="file" name="image" id="chat-img" hidden>
-            <button class="send--img" type="button">画像を追加</button>
-            <button class="send-button" type="submit">
-                <img src="{{ asset('items/send.jpg') }}" alt="送信">
-            </button>
-        </form>
+        <div class="chat__clear"></div>
+        @endif
+        @endforeach
     </div>
+    <form class="message--send" action="/trading/{{ $chatRoom->id }}/send" method="post" enctype="multipart/form-data">
+        @csrf
+        <textarea name="message" placeholder="取引メッセージを記入してください" class="send--text"></textarea>
+
+        <input type="file" name="image" id="chat-img" hidden>
+        <button class="send--img" type="button">画像を追加</button>
+        <button class="send-button" type="submit">
+            <img src="{{ asset('items/send.jpg') }}" alt="送信">
+        </button>
+    </form>
+</div>
 </div>
 @endsection

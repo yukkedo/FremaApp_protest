@@ -44,4 +44,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/purchase/address/{item_id}', [ProfileController::class, 'addressUpdate']);
     Route::get('/trading/{item_id}', [TradingController::class, 'showChat']);
     Route::post('/trading/{chatRoomId}/send', [TradingController::class, 'sendMessage']);
+    Route::put('/trading/{chatRoomId}/message/{messageId}', [TradingController::class, 'updateMessage']);
+    Route::delete('/trading/{chatRoomId}/message/{messageId}', [TradingController::class, 'deleteMessage']);
 });

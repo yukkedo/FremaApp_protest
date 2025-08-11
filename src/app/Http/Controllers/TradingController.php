@@ -106,4 +106,36 @@ class TradingController extends Controller
 
         return redirect()->back();
     }
+
+    public function updateMessage(Request $request, $chatRoomId, $messageId)
+    {
+        $chatMessage = ChatMessage::where('id', $messageId)
+            ->where('chat_room_id', $chatRoomId)
+            ->firstOrFail();
+
+        if ($chatMessage->user_id !== Auth::id()) {
+            abort('403');
+        }
+
+        $chatMessage->message = $request->message;
+        $chatMessage->read_at = null;
+        $chatMessage->save();
+
+        return back();
+    }
+
+    public function deleteMessage($chatRoomId, $messageId)
+    {
+        $chatMessage = ChatMessage::where('id', $messageId)
+            ->where('chat_room_id', $chatRoomId)
+            ->firstOrFail();
+
+        if ($chatMessage->user_id !== Auth::id()) {
+            abort('403');
+        }
+
+        $chatMessage->delete();
+
+        return back();
+    }
 }
