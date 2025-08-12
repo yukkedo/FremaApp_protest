@@ -1,7 +1,7 @@
-# 模擬案件　【フリマアプリ】
+# pro入会テスト　【フリマアプリ:機能追加】
 
 ## Dockerビルド
-1.  git clone git@github.com:coachtech-material/laravel-docker-template.git
+1.  git clone git@github.com:yukkedo/FleaApp.git
 2. docker-compose up -d --build
 
 ## Laravel環境構築
@@ -12,8 +12,7 @@
 5. php artisan migrate
 6. php artisan db:seed
 
-## 開発環境
-* ユーザー登録 : 
+## 開発環境 
 * phpMyAdmin : http://localhost:8080/
 
 ## 使用技術（実行環境）
@@ -23,6 +22,17 @@
 * nginx : 1.21.1
 
 ## ER図
-<img width="482" alt="Image" src="https://github.com/user-attachments/assets/77d4eedb-0593-4081-ba11-648962597f9f" />
+<img width="1286" height="828" alt="Image" src="https://github.com/user-attachments/assets/cdcdccb4-e28c-4c53-b7ad-7ff1725557d0" />
 
+## テストユーザー
+    name : 山田 太郎
+    email : yamadataro@example.com
+    password : test12345
 
+    name : 田中 次郎
+    email : tanakajiro@example.com
+    password : test12345
+
+    name : 鈴木 三郎
+    email : suzukisaburo@example.com
+    password : test12345
