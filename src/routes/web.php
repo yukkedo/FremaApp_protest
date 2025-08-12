@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TradingController;
 
 /*
@@ -46,4 +47,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/trading/{chatRoomId}/send', [TradingController::class, 'sendMessage']);
     Route::put('/trading/{chatRoomId}/message/{messageId}', [TradingController::class, 'updateMessage']);
     Route::delete('/trading/{chatRoomId}/message/{messageId}', [TradingController::class, 'deleteMessage']);
+    Route::post('/trading/{purchase_id}/review', [ReviewController::class, 'store']);
 });

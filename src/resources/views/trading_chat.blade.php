@@ -34,8 +34,8 @@
             <p class="user__name">
                 「{{ $otherParty->name }}」さんとの取引画面
             </p>
-            @if($isBuyer)
-            <button class="trading__button">取引を完了する</button>
+            @if($isBuyer && !$showReviewForm)
+            <a class="trading__button" href="/trading/{{ $item->id }}?review=1">取引を完了する</a>
             @endif
         </div>
         <div class="items">
@@ -81,42 +81,92 @@
                     </div>
                 </div>
             </div>
-        
-        <div class="chat__clear"></div>
-        @else
-        <div class="chat__messages--left">
-            <div class="chat__message--box">
-                <div class="chat__message--user-left">
-                    @if ($message->user->profile && $message->user->profile->image)
-                    <img src="{{ $message->user->profile->image}}" alt="プロフィール画像" class="user-img--left">
-                    @else
-                    <div class="default-img--left"></div>
-                    @endif
-                    <p class="user-name--left">
-                        {{ $message->user->name }}
-                    </p>
-                </div>
-                <div class="chat__message--content">
-                    <div class="chat__message--text">
-                        {{ $message->message }}
+
+            <div class="chat__clear"></div>
+            @else
+            <div class="chat__messages--left">
+                <div class="chat__message--box">
+                    <div class="chat__message--user-left">
+                        @if ($message->user->profile && $message->user->profile->image)
+                        <img src="{{ $message->user->profile->image}}" alt="プロフィール画像" class="user-img--left">
+                        @else
+                        <div class="default-img--left"></div>
+                        @endif
+                        <p class="user-name--left">
+                            {{ $message->user->name }}
+                        </p>
+                    </div>
+                    <div class="chat__message--content">
+                        <div class="chat__message--text">
+                            {{ $message->message }}
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="chat__clear"></div>
+            @endif
+            @endforeach
         </div>
-        <div class="chat__clear"></div>
-        @endif
-        @endforeach
-    </div>
-    <form class="message--send" action="/trading/{{ $chatRoom->id }}/send" method="post" enctype="multipart/form-data">
-        @csrf
-        <textarea name="message" placeholder="取引メッセージを記入してください" class="send--text"></textarea>
 
-        <input type="file" name="image" id="chat-img" hidden>
-        <button class="send--img" type="button">画像を追加</button>
-        <button class="send-button" type="submit">
-            <img src="{{ asset('items/send.jpg') }}" alt="送信">
-        </button>
-    </form>
-</div>
+        <form class="send-form" action="/trading/{{ $chatRoom->id }}/send" method="post" enctype="multipart/form-data">
+            @csrf
+            @foreach ($errors->all() as $error)
+            <div class="error-message">{{ $error }}</div>
+            @endforeach
+            <div class="message--send">
+                <textarea name="message" placeholder="取引メッセージを記入してください" class="send--text"></textarea>
+
+                <label class="send--img" for="chat-img">画像を追加</label>
+                <input type="file" name="image" id="chat-img" hidden>
+                <button class="send-button" type="submit">
+                    <img src="{{ asset('items/send.jpg') }}" alt="送信">
+                </button>
+            </div>
+        </form>
+    </div>
+
+    @if ($showReviewForm)
+    <div class="modal">
+        <form action="/trading/{{ $purchase->id }}/review" method="post">
+            @csrf
+            <p class="modal__title">取引が完了しました</p>
+            <div class="form-rating">
+                <p class="rating--content">
+                    今回の取引相手はどうでしたか？
+                </p>
+                <div class="rating-star">
+                    @for ($i = 5; $i >= 1; $i--)
+                    <input type="radio" class="rating--input" id="star{{ $i }}" name="rating" value="{{ $i }}">
+                    <label for="star{{ $i }}" class="rating--label">
+                        <img src="/items/Star_empty.png" alt="5 stars">
+                    </label>
+                    @endfor
+                    <!-- <input type="radio" class="rating--input" id="star4" name="rating" value="4">
+                    <label for="star4" class="rating--label">
+                        <img src="/items/Star_empty.png" alt="4 stars">
+                    </label>
+
+                    <input type="radio" class="rating--input" id="star3" name="rating" value="3">
+                    <label for="star3" class="rating--label">
+                        <img src="/items/Star_empty.png" alt="3 stars">
+                    </label>
+
+                    <input type="radio" class="rating--input" id="star2" name="rating" value="2">
+                    <label for="star2" class="rating--label">
+                        <img src="/items/Star_empty.png" alt="2 stars">
+                    </label>
+
+                    <input type="radio" class="rating--input" id="star1" name="rating" value="1">
+                    <label for="star1" class="rating--label">
+                        <img src="/items/Star_empty.png" alt="1 stars">
+                    </label> -->
+                </div>
+                <div class="form-rating--button">
+                    <button type="submit" class="button">送信する</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    @endif
 </div>
 @endsection

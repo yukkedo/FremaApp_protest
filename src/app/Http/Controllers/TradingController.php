@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChatMessageRequest;
 use App\Models\ChatMessage;
 use App\Models\ChatRoom;
 use App\Models\Item;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -71,6 +73,23 @@ class TradingController extends Controller
                 ->get();
         }
 
+        // 評価チェック追加
+        // 購入者の評価有無
+        $buyerReview = Review::where('purchase_id', $purchase->id)
+            ->where('reviewer_id', $purchase->user_id)
+            ->first();
+
+        // 出品者の評価有無
+        $sellerReview = Review::where('purchase_id', $purchase->id)
+            ->where('reviewer_id', $item->user_id)
+            ->first();
+
+        $showReviewForm = request()->query('review') == '1';
+
+        if ($isSeller && $buyerReview && !$sellerReview) {
+            $showReviewForm = true;
+        }
+
         return view('trading_chat', compact(
             'item',
             'purchase',
@@ -81,11 +100,12 @@ class TradingController extends Controller
             'leftUser',
             'rightUser',
             'otherParty',
-            'sidebarTrades'
+            'sidebarTrades',
+            'showReviewForm'
         ));
     }
 
-    public function sendMessage(Request $request, $chatRoomId) 
+    public function sendMessage(ChatMessageRequest $request, $chatRoomId) 
     {
         $chatRoom = ChatRoom::findOrFail($chatRoomId);
 
@@ -107,7 +127,7 @@ class TradingController extends Controller
         return redirect()->back();
     }
 
-    public function updateMessage(Request $request, $chatRoomId, $messageId)
+    public function updateMessage(ChatMessageRequest $request, $chatRoomId, $messageId)
     {
         $chatMessage = ChatMessage::where('id', $messageId)
             ->where('chat_room_id', $chatRoomId)

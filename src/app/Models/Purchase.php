@@ -12,6 +12,7 @@ class Purchase extends Model
     protected $fillable = [
         'user_id',
         'item_id',
+        'status'
     ];
 
     public function user()
@@ -27,5 +28,10 @@ class Purchase extends Model
     public function chatRoom()
     {
         return $this->hasOne(ChatRoom::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }
