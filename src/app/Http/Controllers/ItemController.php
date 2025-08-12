@@ -161,11 +161,9 @@ class  ItemController extends Controller
     {
         $item = Item::find($itemId);
 
-        $tradingPurchased = Purchase::where('item_id', $itemId)
-            ->where('status', 0)
-            ->exists();
+        $alreadyPurchased = Purchase::where('item_id', $itemId)->exists();
 
-        if($tradingPurchased) {
+        if($alreadyPurchased) {
             return redirect('/');
         }
 
