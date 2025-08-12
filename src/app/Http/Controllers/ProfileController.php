@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\Item;
 use App\Models\Purchase;
+use App\Models\Review;
 use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
@@ -43,6 +44,7 @@ class ProfileController extends Controller
 
         $chatRoomIds = [];
         $lastMessageMap = [];
+        $itemChatRoomMap = [];
 
         foreach ($purchases as $purchase) {
             $chatRoom = ChatRoom::where('purchase_id', $purchase->id)->first();
@@ -82,8 +84,20 @@ class ProfileController extends Controller
         } else {
             $items = collect();
         }
+
+        $averageRating = Review::where('reviewed_id', $user->id)->avg('rating');
+        if ($averageRating) {
+            $averageRating = round($averageRating);
+        }
         
-        return view('mypage', compact('user', 'tab', 'items', 'unreadCounts', 'itemChatRoomMap','totalUnreadCount'));
+        return view('mypage', compact(
+            'user', 
+            'tab', 'items', 
+            'unreadCounts', 
+            'itemChatRoomMap', 
+            'totalUnreadCount',
+            'averageRating'
+        ));
     }
 
     public function profile()

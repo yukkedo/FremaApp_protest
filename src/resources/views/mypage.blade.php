@@ -42,7 +42,17 @@
         </div>
         <div class="user-name">
             <h3>{{ $user->name }}</h3>
-            <!-- レビュー機能追加予定 -->
+            @if (!is_null($averageRating))
+            <div class="star-rating">
+                @for ($i = 1; $i <= 5; $i++)
+                    @if($i <= $averageRating)
+                    <img src="{{ asset('items/Star_filled.png') }}" alt="">
+                    @else
+                    <img src="{{ asset('items/Star_empty.png') }}" alt="">
+                    @endif
+                @endfor
+            </div>
+            @endif
         </div>
         <div class=" user-button">
             <a class="profile__edit" href="/mypage/profile">プロフィールを編集する</a>
