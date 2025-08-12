@@ -27,8 +27,8 @@
                 <a href="/login" class="header-nav__item--button no-border">ログイン</a>
             </li>
             @endif
-            <li><a href="/mypage" class="header-nav__item">マイページ</a></li>
-            <li><a href="" class="header-nav__item--sell">出品</a></li>
+            <li><a href="/mypage?tab=sell" class="header-nav__item">マイページ</a></li>
+            <li><a href="/sell" class="header-nav__item--sell">出品</a></li>
         </ul>
     </nav>
 </div>
