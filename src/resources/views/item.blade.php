@@ -11,8 +11,8 @@
 @section('header')
 <div class="header">
     <form class="header__search" action="/" method="get">
-        @csrf
-        <input class="header__search--input" type="text" name="search" value="{{request()->input('search')}}" placeholder="なにをお探しですか？">
+        <input type="hidden" name="tab" value="{{ request()->query('tab', 'all') }}">
+        <input class="header__search--input" type="text" name="search" value="{{ request()->input('search') }}" placeholder="なにをお探しですか？">
     </form>
     <nav class="header-nav">
         <ul class="header-nav__list">
@@ -38,8 +38,8 @@
 @section('content')
 <div class="item-list">
     <div class="page-tag">
-        <a href="/" class="list {{ request('tab') == null ? 'active' : ''}}">おすすめ</a>
-        <a href="/?tab=mylist" class="list {{ request('tab') == 'mylist' ? 'active' : ''}}">マイリスト</a>
+        <a href="/?tab=all&search={{ request('search') }}" class=" list {{ request('tab') == 'all' ? 'active' : ''}}">おすすめ</a>
+        <a href="/?tab=mylist&search={{ request('search') }}" class="list {{ request('tab') == 'mylist' ? 'active' : ''}}">マイリスト</a>
     </div>
 
     <div class="item__content">
@@ -52,7 +52,7 @@
             </div>
             <div class="item__name">
                 <p>{{$item->name}}</p>
-                @if($item->purchase && $item->purchase->status == 0)
+                @if($item->purchase)
                 <p class="sold-label">sold</p>
                 @endif
             </div>

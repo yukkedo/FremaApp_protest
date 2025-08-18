@@ -29,10 +29,29 @@ class  ItemController extends Controller
         {
             if(auth()->check()){
                 $user = auth()->user();
-                $likes = Like::where('user_id', $user->id)->get();
-                $items = $likes->map(function ($like){
-                    return $like->item;
-                });
+
+                $itemIds = Like::where('user_id', $user->id)->pluck('item_id');
+
+                $query = Item::query()->with('purchase')
+                    ->whereIn('id', $itemIds);
+
+                if ($search) {
+                    $query->where('name', 'LIKE', "%{$search}%");
+                }
+
+                $items = $query->get();
+                // $likes = Like::where('user_id', $user->id)
+                //     ->with('item')
+                //     ->get();
+                // $items = $likes->map(function ($like){
+                //     return $like->item;
+                // });
+
+                // if ($search) {
+                //     $items = $items->filter(function ($item) use ($search) {
+                //         return strpos($item->name, $search) !== false;
+                //     });
+                // }
             } else {
                 $items = collect();
             }
