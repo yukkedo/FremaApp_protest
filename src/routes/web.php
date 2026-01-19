@@ -30,7 +30,7 @@ Route::get('/item/{item_id}', [ItemController::class, 'getDetail']);
 Route::post('/item/{item_id}/like', [ItemController::class, 'like']);
 Route::get('/purchase/address', [ItemController::class,'getChangeAddress']);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/item/{item_id}/comment', [ItemController::class, 'comment']);
     Route::get('/mypage', [ProfileController::class, 'show']);
     Route::get('/mypage/profile', [ProfileController::class, 'profile']);
