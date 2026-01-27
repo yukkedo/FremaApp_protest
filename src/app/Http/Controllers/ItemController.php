@@ -40,18 +40,6 @@ class  ItemController extends Controller
                 }
 
                 $items = $query->get();
-                // $likes = Like::where('user_id', $user->id)
-                //     ->with('item')
-                //     ->get();
-                // $items = $likes->map(function ($like){
-                //     return $like->item;
-                // });
-
-                // if ($search) {
-                //     $items = $items->filter(function ($item) use ($search) {
-                //         return strpos($item->name, $search) !== false;
-                //     });
-                // }
             } else {
                 $items = collect();
             }
@@ -144,12 +132,12 @@ class  ItemController extends Controller
 
     public function comment(CommentRequest $request)
     {
-        if (!auth()->check()) {
-            return redirect('/login');
-        }
+        // if (!auth()->check()) {
+        //     return redirect('/login');
+        // }
 
         Comment::create([
-            'content' => $request->content,
+            'content' => $request->validated()['content'],
             'user_id' => auth()->id(),
             'item_id' => $request->item_id,
         ]);

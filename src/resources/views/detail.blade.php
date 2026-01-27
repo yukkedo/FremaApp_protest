@@ -74,7 +74,6 @@
             <p class="item-text">{{$item->description}}</p>
         </div>
         <div class="item__info">
-            <h3 class="item-title">商品説明</h3>
             <div class="info-content">
                 <label for="" class="label">カテゴリー</label>
                 @foreach($item->categories as $category)
@@ -89,7 +88,11 @@
                 <h3 class="comment-title">コメント（<span>{{$commentCount}}</span>）</h3>
                 @foreach($comments as $comment)
                 <div class="comment-user">
-                    <img src="{{ optional($comment->user->profile)->image ? asset('storage/' .$comment->user->profile->image) : asset('storage/user_img/default.png') }}" alt="プロフィール画像" width="50px" height="50px" style="border-radius: 50%;">
+                    @if($comment->user->profile && $comment->user->profile->image)
+                    <img src="{{ asset('storage/' .$comment->user->profile->image) }}" alt="プロフィール画像" width="50px" height="50px" style="border-radius: 50%; object-fit: cover;">
+                    @else
+                    <div class="default-profile"></div>
+                    @endif
                     <p class="user-name">{{$comment->user->name}}</p>
                 </div>
                 <div class="comment-view">
@@ -101,8 +104,13 @@
                     <form action="/item/{{ $item->id }}/comment" method="post">
                         @csrf
                         <input type="hidden" name="item_id" value="{{ $item->id }}">
-                        <textarea class="comment-text" name="content"></textarea>
-                        <button class="comment-button">コメントを送信する</button>
+                        <textarea class="comment-text" name="content">{{ old('content') }}</textarea>
+
+                        @error('content')
+                        <p class="error-message" style="color:red;">{{ $message }}</p>
+                        @enderror
+
+                        <button class=" comment-button">コメントを送信する</button>
                     </form>
                 </div>
             </div>
