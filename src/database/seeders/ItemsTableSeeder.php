@@ -16,7 +16,7 @@ class ItemsTableSeeder extends Seeder
     {
         DB::table('items')->insert([
             [
-                'image' => 'storage/item_img/watch.jpg',
+                'image' => 'img/dummy/product/watch.jpg',
                 'user_id' => '1',
                 'condition_id' => '1',
                 'name' => '腕時計',
@@ -25,7 +25,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => '15000',
             ],
             [
-                'image' => 'storage/item_img/hdd.jpg',
+                'image' => 'img/dummy/product/hdd.jpg',
                 'user_id' => '1',
                 'condition_id' => '2',
                 'name' => 'HDD',
@@ -34,7 +34,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => '5000',
             ],
             [
-                'image' => 'storage/item_img/onion.jpg',
+                'image' => 'img/dummy/product/onion.jpg',
                 'user_id' => '1',
                 'condition_id' => '3',
                 'name' => '玉ねぎ3束',
@@ -43,7 +43,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => '300',
             ],
             [
-                'image' => 'storage/item_img/shoes.jpg',
+                'image' => 'img/dummy/product/shoes.jpg',
                 'user_id' => '1',
                 'condition_id' => '4',
                 'name' => '革靴',
@@ -52,7 +52,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => '4000',
             ],
             [
-                'image' => 'storage/item_img/pc.jpg',
+                'image' => 'img/dummy/product/pc.jpg',
                 'user_id' => '1',
                 'condition_id' => '1',
                 'name' => 'ノートPC',
@@ -61,7 +61,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => '45000',
             ],
             [
-                'image' => 'storage/item_img/mike.jpg',
+                'image' => 'img/dummy/product/mike.jpg',
                 'user_id' => '2',
                 'condition_id' => '2',
                 'name' => 'マイク',
@@ -70,7 +70,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => '8000',
             ],
             [
-                'image' => 'storage/item_img/shoulderbag.jpg',
+                'image' => 'img/dummy/product/shoulderbag.jpg',
                 'user_id' => '2',
                 'condition_id' => '3',
                 'name' => 'ショルダーバッグ',
@@ -79,7 +79,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => '3500',
             ],
             [
-                'image' => 'storage/item_img/tumbler.jpg',
+                'image' => 'img/dummy/product/tumbler.jpg',
                 'user_id' => '2',
                 'condition_id' => '4',
                 'name' => 'タンブラー',
@@ -88,7 +88,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => '500',
             ],
             [
-                'image' => 'storage/item_img/coffeemill.jpg',
+                'image' => 'img/dummy/product/coffeemill.jpg',
                 'user_id' => '2',
                 'condition_id' => '1',
                 'name' => 'コーヒーミル',
@@ -97,7 +97,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => '4000',
             ],
             [
-                'image' => 'storage/item_img/makeup.jpg',
+                'image' => 'img/dummy/product/makeup.jpg',
                 'user_id' => '2',
                 'condition_id' => '2',
                 'name' => 'メイクセット',
