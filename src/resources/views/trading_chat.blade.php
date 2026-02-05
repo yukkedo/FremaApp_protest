@@ -59,36 +59,53 @@
                             {{ $message->user->name }}
                         </p>
                         @if ($message->user->profile && $message->user->profile->image)
-                        <img src="{{ $message->user->profile->image}}" alt="プロフィール画像" class="user-img--right">
+                        <img src="{{ asset('storage/' . $message->user->profile->image) }}" alt="プロフィール画像" class="user-img--right">
                         @else
                         <div class="default-img--right"></div>
                         @endif
                     </div>
-                    <div class="chat__message--content">
-                        <form action="/trading/{{ $chatRoom->id }}/message/{{ $message->id }}" method="post" class="chat__edit-form">
-                            @csrf
-                            @method('PUT')
-                            <input class="chat__message--text" value="{{ $message->message }}" name="message" type="text">
-                            <div class="chat__buttons-row">
+                    <div class="chat__message--area">
+                        <div class="chat__message--content">
+                            <form action="/trading/{{ $chatRoom->id }}/message/{{ $message->id }}" method="post" class="chat__edit-form">
+                                @csrf
+                                @method('PUT')
+
+                                <input class="chat__message--text" value="{{ $message->message }}" name="message" type="text">
+                                @if($message->image)
+                                <div class="chat__message--image">
+                                    <img src="{{ asset('storage/' . $message->image) }}" alt="" width="100">
+                                </div>
+                                @endif
+                            </form>
+                        </div>
+
+                        <div class="chat__buttons-row">
+                            <form action="/trading/{{ $chatRoom->id }}/message/{{ $message->id }}"
+                                method="post"
+                                class="chat__edit-form">
+                                @csrf
+                                @method('PUT')
                                 <button class="edit" type="submit">編集</button>
-                            </div>
-                        </form>
-                        <form action="/trading/{{ $chatRoom->id }}/message/{{ $message->id }}" method="post" class="chat__delete-form">
-                            @csrf
-                            @method('DELETE')
-                            <button class="delete" type="submit">削除</button>
-                        </form>
+                            </form>
+                            <form action="/trading/{{ $chatRoom->id }}/message/{{ $message->id }}" method="post" class="chat__delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button class="delete" type="submit">削除</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
+                <div class="chat__clear"></div>
             </div>
-
-            <div class="chat__clear"></div>
             @else
             <div class="chat__messages--left">
                 <div class="chat__message--box">
                     <div class="chat__message--user-left">
                         @if ($message->user->profile && $message->user->profile->image)
-                        <img src="{{ $message->user->profile->image}}" alt="プロフィール画像" class="user-img--left">
+                        <img
+                            src="{{ asset('storage/' . $message->user->profile->image) }}"
+                            alt="プロフィール画像"
+                            class="user-img--left">
                         @else
                         <div class="default-img--left"></div>
                         @endif
@@ -97,9 +114,17 @@
                         </p>
                     </div>
                     <div class="chat__message--content">
+                        @if($message->message)
                         <div class="chat__message--text">
                             {{ $message->message }}
                         </div>
+                        @endif
+
+                        @if($message->image)
+                        <div class="chat__message--image">
+                            <img src="{{ asset('storage/' . $message->image) }}" alt="送信画像" width="100">
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -48,7 +48,7 @@
     padding: 0 30px;
 }
 
-.user-img img {
+.user__img img {
     height: 50px;
     width: 50px;
     border-radius: 50%;
@@ -126,6 +126,7 @@
     width: 50%;
     float: left;
     text-align: left;
+    margin-right: 30px;
 }
 
 .chat__messages--right {
@@ -158,8 +159,13 @@
 }
 
 .chat__message--content {
+    display: flex;
     flex-direction: column;
     position: relative;
+    background-color: #d9d9d9;
+    border-radius: 8px;
+    padding: 8px 12px;
+    max-width: 100%;
 }
 
 .chat__edit-form {
@@ -168,28 +174,31 @@
 }
 
 .chat__message--text {
-    background-color: #D9D9D9;
-    border-radius: 4px;
+    background-color: transparent;
     border: none;
-    height: 50px;
+    padding: 4px 0;
     width: 100%;
-    padding: 8px 16px;
     box-sizing: border-box;
+    word-wrap: break-word;
+    font-size: 15px;
+}
+
+.chat__message--image {
+    margin-top: 6px;
+}
+
+.chat__message--image img {
+    max-width: auto;
+    height: auto;
+    border-radius: 6px;
+    display: block;
 }
 
 .chat__buttons-row {
+    display: flex;
     gap: 8px;
-}
-
-.edit {
-    margin: 5px 100px 5px 0;
-
-}
-
-.delete {
-    position: absolute;
-    top: 55px;
-    right: 30px;
+    justify-content: flex-end;
+    margin-top: 4px;
 }
 
 .edit,
@@ -201,8 +210,7 @@
     box-shadow: 0px 4px 4px 0px #00000040;
     padding: 3px 5px;
     cursor: pointer;
-    white-space: nowrap;
-}
+} 
 
 .chat__message--user-left {
     display: flex;
@@ -263,6 +271,7 @@
     padding: 8px 5px;
     margin: 0 10px;
     text-align: center;
+    cursor: pointer;
 }
 
 .send-button {
