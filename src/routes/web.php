@@ -41,7 +41,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/sell/image', [ItemController::class, 'storeImage']);
     Route::post('/sell', [ItemController::class, 'storeSell']);
     Route::get('/purchase/{item_id}', [ItemController::class, 'getPurchase']);
-    // Route::post('/purchase/{item_id}', [ItemController::class, 'purchaseItem']);
     Route::get('/purchase/address/{item_id}', [ProfileController::class, 'getChangeAddress']);
     Route::post('/purchase/address/{item_id}', [ProfileController::class, 'addressUpdate']);
     Route::post('/stripe/checkout/{item_id}', [StripeController::class, 'checkout']);

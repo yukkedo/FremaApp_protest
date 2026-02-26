@@ -166,25 +166,6 @@
                         <img src="/items/Star_empty.png" alt="5 stars">
                     </label>
                     @endfor
-                    <!-- <input type="radio" class="rating--input" id="star4" name="rating" value="4">
-                    <label for="star4" class="rating--label">
-                        <img src="/items/Star_empty.png" alt="4 stars">
-                    </label>
-
-                    <input type="radio" class="rating--input" id="star3" name="rating" value="3">
-                    <label for="star3" class="rating--label">
-                        <img src="/items/Star_empty.png" alt="3 stars">
-                    </label>
-
-                    <input type="radio" class="rating--input" id="star2" name="rating" value="2">
-                    <label for="star2" class="rating--label">
-                        <img src="/items/Star_empty.png" alt="2 stars">
-                    </label>
-
-                    <input type="radio" class="rating--input" id="star1" name="rating" value="1">
-                    <label for="star1" class="rating--label">
-                        <img src="/items/Star_empty.png" alt="1 stars">
-                    </label> -->
                 </div>
                 <div class="form-rating--button">
                     <button type="submit" class="button">送信する</button>

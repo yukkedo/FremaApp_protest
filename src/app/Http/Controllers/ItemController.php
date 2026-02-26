@@ -132,10 +132,6 @@ class  ItemController extends Controller
 
     public function comment(CommentRequest $request)
     {
-        // if (!auth()->check()) {
-        //     return redirect('/login');
-        // }
-
         Comment::create([
             'content' => $request->validated()['content'],
             'user_id' => auth()->id(),

@@ -348,7 +348,6 @@
     content: url('/items/Star_filled.png');
 }
 
-/* 選択時：自分と左側の星を塗りつぶし */
 .rating--input:checked ~ .rating--label img {
     content: url('/items/Star_filled.png');
 }

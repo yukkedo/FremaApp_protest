@@ -50,18 +50,15 @@ class TradingController extends Controller
         $buyerId = $purchase->user_id;
 
         if ($isSeller) {
-            // 出品者側
             $leftUser = $buyerId;
             $rightUser = $sellerId;
             $otherParty = $purchase->user;
         } else {
-            // 購入者側
             $leftUser = $sellerId;
             $rightUser = $buyerId;
             $otherParty = $item->user;
         }
 
-        // サイドバー用の取引リスト(出品者のみ)
         $sidebarTrades = collect();
         if ($isSeller) {
             $sidebarTrades = Item::where('user_id', $user->id)
@@ -73,13 +70,10 @@ class TradingController extends Controller
                 ->get();
         }
 
-        // 評価チェック追加
-        // 購入者の評価有無
         $buyerReview = Review::where('purchase_id', $purchase->id)
             ->where('reviewer_id', $purchase->user_id)
             ->first();
 
-        // 出品者の評価有無
         $sellerReview = Review::where('purchase_id', $purchase->id)
             ->where('reviewer_id', $item->user_id)
             ->first();
