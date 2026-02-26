@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\TradingController;
 
 /*
@@ -40,9 +41,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/sell/image', [ItemController::class, 'storeImage']);
     Route::post('/sell', [ItemController::class, 'storeSell']);
     Route::get('/purchase/{item_id}', [ItemController::class, 'getPurchase']);
-    Route::post('/purchase/{item_id}', [ItemController::class, 'purchaseItem']);
+    // Route::post('/purchase/{item_id}', [ItemController::class, 'purchaseItem']);
     Route::get('/purchase/address/{item_id}', [ProfileController::class, 'getChangeAddress']);
     Route::post('/purchase/address/{item_id}', [ProfileController::class, 'addressUpdate']);
+    Route::post('/stripe/checkout/{item_id}', [StripeController::class, 'checkout']);
+    Route::get('/purchase/success/{item_id}', [ItemController::class,'purchaseSuccess']);
+    Route::get('purchase/cancel/{item_id}', [ItemController::class, 'purchaseCancel']);
     Route::get('/trading/{item_id}', [TradingController::class, 'showChat']);
     Route::post('/trading/{chatRoomId}/send', [TradingController::class, 'sendMessage']);
     Route::put('/trading/{chatRoomId}/message/{messageId}', [TradingController::class, 'updateMessage']);

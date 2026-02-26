@@ -164,7 +164,7 @@ class  ItemController extends Controller
         return view('purchase', compact('item', 'profile','paymentMethod', 'displayPayment'));
     }
 
-    public function purchaseItem(Request $request, $itemId)
+    public function purchaseSuccess($itemId)
     {
         $item = Item::find($itemId);
 
@@ -187,6 +187,11 @@ class  ItemController extends Controller
         });
 
         return redirect('/');
+    }
+
+    public function purchaseCancel($itemId)
+    {
+        return redirect('/')->with('error', '支払いがキャンセルされました');
     }
 
     public function storeImage(Request $request)

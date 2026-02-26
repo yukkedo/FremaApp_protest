@@ -85,7 +85,7 @@
                 </td>
             </tr>
         </table>
-        <form class="payment__button" action="/purchase/{{ $item->id }}" method="post">
+        <form class="payment__button" action="/stripe/checkout/{{ $item->id }}" method="post">
             @csrf
             <button class="button" type="submit">購入する</button>
         </form>
