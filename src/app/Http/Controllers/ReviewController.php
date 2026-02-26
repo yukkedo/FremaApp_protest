@@ -6,6 +6,8 @@ use App\Models\Purchase;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TransactionCompletedMail;
 
 class ReviewController extends Controller
 {
@@ -17,9 +19,13 @@ class ReviewController extends Controller
         if ($userId === $purchase->user_id) {
             $reviewerId = $userId;
             $reviewedId = $purchase->item->user_id;
+
+            $isBuyerReview = true;
         } elseif ($userId === $purchase->item->user_id) {
             $reviewerId = $userId;
             $reviewedId = $purchase->user_id;
+
+            $isBuyerReview = false;
         }
 
         Review::create([
@@ -32,6 +38,13 @@ class ReviewController extends Controller
         $reviewCount = Review::where('purchase_id', $purchase->id)->count();
         if ($reviewCount >= 2) {
             $purchase->update(['status' => 1]);
+        }
+
+        if ($isBuyerReview) {
+            $seller = $purchase->item->user;
+
+            Mail::to($seller->email)
+                ->send(new TransactionCompletedMail($purchase));
         }
 
         return redirect('/');
